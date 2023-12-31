@@ -13,6 +13,13 @@ public class ProjectRepository : IProjectRepository
         _context = context;
     }
 
+    public async Task<List<Project>> GetProjectsByUserNameAsync(string username)
+    {
+        return await _context.Projects
+        .Where(x => x.AppUser.UserName == username)
+        .ToListAsync();
+    }
+
     public async Task<Project> GetProjectIdAsync(int id)
     {
         return await _context.Projects.FindAsync(id);

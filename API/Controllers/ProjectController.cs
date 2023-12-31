@@ -33,12 +33,20 @@ public class ProjectController : BaseApiController
         return Ok(projectsToReturn);
     }
 
-    [HttpGet("{id}")]
-    public async Task<ActionResult<SubmitProjectDto>> GetProject(int id)
-    {
-        var project = await _projectRepository.GetProjectIdAsync(id);
+    // [HttpGet("{id}")]
+    // public async Task<ActionResult<SubmitProjectDto>> GetProject(int id)
+    // {
+    //     var project = await _projectRepository.GetProjectIdAsync(id);
 
-        return _mapper.Map<SubmitProjectDto>(project);
+    //     return _mapper.Map<SubmitProjectDto>(project);
+    // }
+
+    [HttpGet("{username}")]
+    public async Task<ActionResult<IEnumerable<SubmitProjectDto>>> GetProjectsByUsername(string username)
+    {
+        var projects = await _projectRepository.GetProjectsByUserNameAsync(username);
+        var projectsToReturn = _mapper.Map<IEnumerable<SubmitProjectDto>>(projects);
+        return Ok(projectsToReturn);
     }
 
     [HttpPost("add-project")]

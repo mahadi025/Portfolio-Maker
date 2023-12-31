@@ -8,6 +8,6 @@ public interface IProjectRepository
     Task<bool> SaveAllAsync();
     Task<IEnumerable<Project>> GetProjectsAsync();
     Task<Project> GetProjectIdAsync(int id);
-    // Task<Project> GetProjectByNameAsync(string name);
+    Task<List<Project>> GetProjectsByUserNameAsync(string username);
 
 }
