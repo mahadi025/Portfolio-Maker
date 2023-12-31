@@ -1,5 +1,8 @@
 ﻿using API.Data;
+using API.DTOs;
 using API.Entities;
+using API.Extensions;
+using API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,22 +11,60 @@ namespace API.Controllers;
 public class ProjectController : BaseApiController
 {
     private readonly DataContext _context;
+    private readonly IProjectRepository _projectRepository;
+    private readonly IUserRepository _userRepository;
 
-    public ProjectController(DataContext context)
+    public ProjectController(DataContext context, IProjectRepository projectRepository, IUserRepository userRepository)
     {
         _context = context;
+        _projectRepository = projectRepository;
+        _userRepository = userRepository;
     }
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
     {
-        var Projects = await _context.Projects.ToListAsync();
-
-        return Projects;
+        return Ok(await _projectRepository.GetProjectsAsync());
     }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<Project>> GetProject(int id)
     {
-        return await _context.Projects.FindAsync(id);
+        return await _projectRepository.GetProjectIdAsync(id);
     }
+
+    [HttpPost("add-project")]
+    public async Task<ActionResult<ProjectDto>> Register(ProjectRegisterDto registerDto)
+    {
+        if (await ProjectExists(registerDto.Name)) return BadRequest("Project already exist");
+
+        var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        var project = new Project
+        {
+            Name = registerDto.Name,
+            Url = registerDto.Url,
+            AppUser = user
+        };
+
+        _context.Projects.Add(project);
+
+        await _context.SaveChangesAsync();
+
+        return new ProjectDto
+        {
+            Name = project.Name,
+            Url = project.Url
+        };
+    }
+
+    private async Task<bool> ProjectExists(string name)
+    {
+        return await _context.Projects.AnyAsync(x => x.Name == name);
+    }
+
 }
