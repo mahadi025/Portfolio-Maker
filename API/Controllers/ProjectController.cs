@@ -3,6 +3,7 @@ using API.DTOs;
 using API.Entities;
 using API.Extensions;
 using API.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,23 +14,31 @@ public class ProjectController : BaseApiController
     private readonly DataContext _context;
     private readonly IProjectRepository _projectRepository;
     private readonly IUserRepository _userRepository;
+    private readonly IMapper _mapper;
 
-    public ProjectController(DataContext context, IProjectRepository projectRepository, IUserRepository userRepository)
+    public ProjectController(DataContext context, IProjectRepository projectRepository, IUserRepository userRepository, IMapper mapper)
     {
         _context = context;
         _projectRepository = projectRepository;
         _userRepository = userRepository;
+        _mapper = mapper;
     }
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
+    public async Task<ActionResult<IEnumerable<SubmitProjectDto>>> GetProjects()
     {
-        return Ok(await _projectRepository.GetProjectsAsync());
+        var projects = await _projectRepository.GetProjectsAsync();
+
+        var projectsToReturn = _mapper.Map<IEnumerable<SubmitProjectDto>>(projects);
+
+        return Ok(projectsToReturn);
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Project>> GetProject(int id)
+    public async Task<ActionResult<SubmitProjectDto>> GetProject(int id)
     {
-        return await _projectRepository.GetProjectIdAsync(id);
+        var project = await _projectRepository.GetProjectIdAsync(id);
+
+        return _mapper.Map<SubmitProjectDto>(project);
     }
 
     [HttpPost("add-project")]
@@ -48,7 +57,7 @@ public class ProjectController : BaseApiController
         {
             Name = registerDto.Name,
             Url = registerDto.Url,
-            AppUser = user
+            AppUser = user,
         };
 
         _context.Projects.Add(project);
