@@ -24,11 +24,11 @@ public class ProjectController : BaseApiController
         _mapper = mapper;
     }
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<SubmitProjectDto>>> GetProjects()
+    public async Task<ActionResult<IEnumerable<ProjectDto>>> GetProjects()
     {
         var projects = await _projectRepository.GetProjectsAsync();
 
-        var projectsToReturn = _mapper.Map<IEnumerable<SubmitProjectDto>>(projects);
+        var projectsToReturn = _mapper.Map<IEnumerable<ProjectDto>>(projects);
 
         return Ok(projectsToReturn);
     }
@@ -42,10 +42,10 @@ public class ProjectController : BaseApiController
     // }
 
     [HttpGet("{username}")]
-    public async Task<ActionResult<IEnumerable<SubmitProjectDto>>> GetProjectsByUsername(string username)
+    public async Task<ActionResult<IEnumerable<ProjectDto>>> GetProjectsByUsername(string username)
     {
         var projects = await _projectRepository.GetProjectsByUserNameAsync(username);
-        var projectsToReturn = _mapper.Map<IEnumerable<SubmitProjectDto>>(projects);
+        var projectsToReturn = _mapper.Map<IEnumerable<ProjectDto>>(projects);
         return Ok(projectsToReturn);
     }
 
@@ -74,6 +74,7 @@ public class ProjectController : BaseApiController
 
         return new ProjectDto
         {
+            Id = project.Id,
             Name = project.Name,
             Url = project.Url
         };
