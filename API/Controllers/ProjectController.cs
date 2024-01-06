@@ -49,7 +49,7 @@ public class ProjectController : BaseApiController
         return Ok(projectsToReturn);
     }
 
-    [HttpPost("add-project")]
+    [HttpPost]
     public async Task<ActionResult<ProjectDto>> Register(ProjectRegisterDto registerDto)
     {
         if (await ProjectExists(registerDto.Name)) return BadRequest("Project already exist");
