@@ -15,5 +15,6 @@ public class AutoMapperProfiles : Profile
         CreateMap<Photo, PhotoDto>();
         CreateMap<Project, ProjectDto>();
         CreateMap<UserRegisterDto, AppUser>();
+        CreateMap<Skill, SkillDto>();
     }
 }
