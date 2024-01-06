@@ -20,14 +20,9 @@ public class ProjectRepository : IProjectRepository
         .ToListAsync();
     }
 
-    public async Task<Project> GetProjectIdAsync(int id)
-    {
-        return await _context.Projects.FindAsync(id);
-    }
-
     public async Task<IEnumerable<Project>> GetProjectsAsync()
     {
-        return await _context.Projects.ToListAsync();
+        return await _context.Projects.Include(p => p.Skills).ToListAsync();
     }
 
     public async Task<bool> SaveAllAsync()
@@ -38,5 +33,10 @@ public class ProjectRepository : IProjectRepository
     public void update(Project project)
     {
         _context.Entry(project).State = EntityState.Modified;
+    }
+
+    public async Task<Project> GetProject(string projectName)
+    {
+        return await _context.Projects.SingleOrDefaultAsync(p => p.Name == projectName);
     }
 }

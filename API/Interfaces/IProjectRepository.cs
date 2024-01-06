@@ -7,7 +7,7 @@ public interface IProjectRepository
     void update(Project project);
     Task<bool> SaveAllAsync();
     Task<IEnumerable<Project>> GetProjectsAsync();
-    Task<Project> GetProjectIdAsync(int id);
+    Task<Project> GetProject(string projectName);
     Task<List<Project>> GetProjectsByUserNameAsync(string username);
 
 }

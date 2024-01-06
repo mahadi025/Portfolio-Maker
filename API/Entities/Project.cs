@@ -8,4 +8,5 @@ public class Project
     public string Url { get; set; }
     public int AppUserId { get; set; }
     public AppUser AppUser { get; set; }
+    public List<Skill> Skills { get; set; } = new();
 }
