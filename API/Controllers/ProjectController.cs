@@ -35,19 +35,18 @@ public class ProjectController : BaseApiController
         return Ok(projectsToReturn);
     }
 
-    // [HttpGet("{id}")]
-    // public async Task<ActionResult<SubmitProjectDto>> GetProject(int id)
-    // {
-    //     var project = await _projectRepository.GetProjectIdAsync(id);
-
-    //     return _mapper.Map<SubmitProjectDto>(project);
-    // }
-
     [HttpGet("{username}")]
     public async Task<ActionResult<IEnumerable<ProjectDto>>> GetProjectsByUsername(string username)
     {
         var projects = await _projectRepository.GetProjectsByUserNameAsync(username);
+
+        if (projects == null)
+        {
+            return NotFound();
+        }
+
         var projectsToReturn = _mapper.Map<IEnumerable<ProjectDto>>(projects);
+
         return Ok(projectsToReturn);
     }
 
@@ -82,39 +81,44 @@ public class ProjectController : BaseApiController
         };
     }
 
-    [HttpPut("add-skills-to-project")]
-    public async Task<ActionResult<ProjectDto>> AddSkillToProject(ProjectDto projectDto)
+    [HttpPut("edit-project/{projectName}")]
+    public async Task<ActionResult<ProjectDto>> EditProject([FromRoute] string projectName, [FromBody] ProjectDto projectDto)
     {
-        var project = await _projectRepository.GetProject(projectDto.Name);
+        var project = await _projectRepository.GetProject(projectName);
 
         if (project == null)
         {
             return NotFound();
         }
 
-        foreach (var skillDto in projectDto.Skills)
+        if (projectDto.Skills != null)
         {
-            // Check if the skill already exists in the database
-            var existingSkill = await _context.Skills.FirstOrDefaultAsync(x => x.Name == skillDto.Name.ToUpper());
-
-            if (existingSkill == null)
+            foreach (var skillDto in project.Skills)
             {
-                // If the skill doesn't exist, create a new one
-                var newSkill = new Skill
+                var existingSkill = await _context.Skills.FirstOrDefaultAsync(x => x.Name == skillDto.Name.ToUpper());
+
+                if (existingSkill == null)
                 {
-                    Name = skillDto.Name.ToUpper(),
-                    // You may need to set other properties as needed
-                };
+                    var newSkill = new Skill
+                    {
+                        Name = skillDto.Name.ToUpper()
+                    };
 
-                _context.Skills.Add(newSkill);
-                project.Skills.Add(newSkill);
-            }
-            else
-            {
-                // If the skill already exists, associate it with the project
-                project.Skills.Add(existingSkill);
+                    _context.Skills.Add(newSkill);
+                    project.Skills.Add(newSkill);
+                }
+                else
+                {
+                    project.Skills.Add(existingSkill);
+                }
             }
         }
+
+        if (projectDto.Name != null) project.Name = projectDto.Name;
+
+        if (projectDto.Url != null) project.Url = projectDto.Url;
+
+        if (projectDto.Description != null) project.Description = projectDto.Description;
 
         await _context.SaveChangesAsync();
 
@@ -133,10 +137,4 @@ public class ProjectController : BaseApiController
     {
         return await _context.Projects.AnyAsync(x => x.Name == name);
     }
-
-    private async Task<bool> SkillExists(string skillName)
-    {
-        return await _context.Skills.AnyAsync(x => x.Name == skillName.ToUpper());
-    }
-
 }
