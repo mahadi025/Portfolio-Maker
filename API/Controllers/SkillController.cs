@@ -70,6 +70,26 @@ public class SkillController : BaseApiController
         };
     }
 
+    [HttpPut("{skillName}")]
+    public async Task<ActionResult<SkillDto>> EditSkill([FromRoute] string skillName, [FromBody] SkillDto skillDto)
+    {
+        var skill = await _skillRepository.GetSkillByName(skillName);
+
+        if (skill == null)
+        {
+            return NotFound();
+        }
+
+        skill.Name = skillDto.Name;
+
+        await _context.SaveChangesAsync();
+
+        var updatedSkillDto = _mapper.Map<SkillDto>(skill);
+
+        return Ok(updatedSkillDto);
+    }
+
+
     private async Task<bool> SkillExists(string name)
     {
         return await _context.Skills.AnyAsync(x => x.Name == name);
