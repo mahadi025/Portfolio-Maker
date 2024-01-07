@@ -31,13 +31,22 @@ public class SkillController : BaseApiController
         return Ok(skillsToReturn);
     }
 
-    // [HttpGet("{skillName}")]
-    // public async Task<ActionResult<IEnumerable<SkillDto>>> GetSkill(string skillName)
-    // {
-    //     var skill = await _skillRepository.GetSkillsByProjectNameAsync(skillName);
-    //     var skillToReturn = _mapper.Map<IEnumerable<SkillDto>>(skill);
-    //     return Ok(skillToReturn);
-    // }
+    [HttpGet("{skillName}")]
+    public async Task<ActionResult<SkillDto>> GetSkill(string skillName)
+    {
+        var skill = await _skillRepository.GetSkillByName(skillName);
+
+        return _mapper.Map<SkillDto>(skill);
+    }
+
+
+    [HttpGet("get-skills-by-project/{projectName}")]
+    public async Task<ActionResult<IEnumerable<SkillDto>>> GetSkillsByProject(string projectName)
+    {
+        var skills = await _skillRepository.GetSkillsByProjectNameAsync(projectName);
+        var skillsToReturn = _mapper.Map<IEnumerable<SkillDto>>(skills);
+        return Ok(skillsToReturn);
+    }
 
     [HttpPost]
     public async Task<ActionResult<SkillDto>> AddSkill(SkillDto skillDto)
