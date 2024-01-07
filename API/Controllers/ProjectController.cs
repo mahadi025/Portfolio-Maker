@@ -13,15 +13,13 @@ public class ProjectController : BaseApiController
 {
     private readonly DataContext _context;
     private readonly IProjectRepository _projectRepository;
-    private readonly ISkillRepository _skillRepository;
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
 
-    public ProjectController(DataContext context, IProjectRepository projectRepository, ISkillRepository skillRepository, IUserRepository userRepository, IMapper mapper)
+    public ProjectController(DataContext context, IProjectRepository projectRepository, IUserRepository userRepository, IMapper mapper)
     {
         _context = context;
         _projectRepository = projectRepository;
-        _skillRepository = skillRepository;
         _userRepository = userRepository;
         _mapper = mapper;
     }
@@ -38,11 +36,18 @@ public class ProjectController : BaseApiController
     [HttpGet("{username}")]
     public async Task<ActionResult<IEnumerable<ProjectDto>>> GetProjectsByUsername(string username)
     {
+        var user = await _userRepository.GetUserByUsernameAsync(username);
+
+        if (user == null)
+        {
+            return NotFound("Username not found");
+        }
+
         var projects = await _projectRepository.GetProjectsByUserNameAsync(username);
 
         if (projects == null)
         {
-            return NotFound();
+            return NotFound("Project not found");
         }
 
         var projectsToReturn = _mapper.Map<IEnumerable<ProjectDto>>(projects);
@@ -88,12 +93,12 @@ public class ProjectController : BaseApiController
 
         if (project == null)
         {
-            return NotFound();
+            return NotFound("Project not found");
         }
 
         if (projectDto.Skills != null)
         {
-            foreach (var skillDto in project.Skills)
+            foreach (var skillDto in projectDto.Skills)
             {
                 var existingSkill = await _context.Skills.FirstOrDefaultAsync(x => x.Name == skillDto.Name.ToUpper());
 
@@ -109,15 +114,16 @@ public class ProjectController : BaseApiController
                 }
                 else
                 {
-                    project.Skills.Add(existingSkill);
+                    if (!project.Skills.Any(projectSkill => projectSkill.Name.Equals(skillDto.Name, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        project.Skills.Add(existingSkill);
+                    }
                 }
             }
         }
 
         if (projectDto.Name != null) project.Name = projectDto.Name;
-
         if (projectDto.Url != null) project.Url = projectDto.Url;
-
         if (projectDto.Description != null) project.Description = projectDto.Description;
 
         await _context.SaveChangesAsync();
@@ -137,4 +143,17 @@ public class ProjectController : BaseApiController
     {
         return await _context.Projects.AnyAsync(x => x.Name == name);
     }
+
+    private async Task<bool> SkillExistsOnProject(ProjectDto projectDto)
+    {
+        var projectName = projectDto.Name;
+
+        var skillNames = projectDto.Skills.Select(skill => skill.Name.ToUpper());
+
+        var exists = await _context.Projects
+            .AnyAsync(project => project.Name == projectName && project.Skills.Any(skill => skillNames.Contains(skill.Name.ToUpper())));
+
+        return exists;
+    }
+
 }
