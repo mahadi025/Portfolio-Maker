@@ -6,5 +6,6 @@ public interface ISkillRepository
 {
     Task<bool> SaveAllAsync();
     Task<IEnumerable<Skill>> GetSkillsAsync();
-    // public Task<List<Skill>> GetSkillsByProjectNameAsync(string projectName);
+    public Task<Skill> GetSkillByName(string skillName);
+    public Task<IEnumerable<Skill>> GetSkillsByProjectNameAsync(string projectName);
 }
