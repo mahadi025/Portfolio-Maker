@@ -37,6 +37,6 @@ public class ProjectRepository : IProjectRepository
 
     public async Task<Project> GetProject(string projectName)
     {
-        return await _context.Projects.SingleOrDefaultAsync(p => p.Name == projectName);
+        return await _context.Projects.Include(p => p.Skills).SingleOrDefaultAsync(p => p.Name == projectName);
     }
 }
