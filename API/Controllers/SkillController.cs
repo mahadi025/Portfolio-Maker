@@ -13,12 +13,14 @@ public class SkillController : BaseApiController
     private readonly ISkillRepository _skillRepository;
     private readonly IMapper _mapper;
     private readonly DataContext _context;
+    private readonly IProjectRepository _projectRepository;
 
-    public SkillController(ISkillRepository skillRepository, IMapper mapper, DataContext context)
+    public SkillController(ISkillRepository skillRepository, IMapper mapper, DataContext context, IProjectRepository projectRepository)
     {
         _skillRepository = skillRepository;
         _mapper = mapper;
         _context = context;
+        _projectRepository = projectRepository;
     }
 
     [HttpGet]
@@ -43,8 +45,17 @@ public class SkillController : BaseApiController
     [HttpGet("get-skills-by-project/{projectName}")]
     public async Task<ActionResult<IEnumerable<SkillDto>>> GetSkillsByProject(string projectName)
     {
-        var skills = await _skillRepository.GetSkillsByProjectNameAsync(projectName);
+        var project = await _projectRepository.GetProject(projectName);
+
+        if (project == null)
+        {
+            return NotFound();
+        }
+
+        var skills = await _skillRepository.GetSkillsByProjectNameAsync(project.Name);
+
         var skillsToReturn = _mapper.Map<IEnumerable<SkillDto>>(skills);
+
         return Ok(skillsToReturn);
     }
 
