@@ -36,7 +36,7 @@ public class SkillController : BaseApiController
     [HttpGet("{skillName}")]
     public async Task<ActionResult<SkillDto>> GetSkill(string skillName)
     {
-        var skill = await _skillRepository.GetSkillByName(skillName);
+        var skill = await _skillRepository.GetSkillByName(skillName.ToUpper());
 
         return _mapper.Map<SkillDto>(skill);
     }
@@ -62,11 +62,11 @@ public class SkillController : BaseApiController
     [HttpPost]
     public async Task<ActionResult<SkillDto>> AddSkill(SkillDto skillDto)
     {
-        if (await SkillExists(skillDto.Name)) return BadRequest("Skill already exist");
+        if (await SkillExists(skillDto.Name.ToUpper())) return BadRequest("Skill already exist");
 
         var skill = new Skill
         {
-            Name = skillDto.Name,
+            Name = skillDto.Name.ToUpper(),
 
         };
 
@@ -84,7 +84,7 @@ public class SkillController : BaseApiController
     [HttpPut("{skillName}")]
     public async Task<ActionResult<SkillDto>> EditSkill([FromRoute] string skillName, [FromBody] SkillDto skillDto)
     {
-        var skill = await _skillRepository.GetSkillByName(skillName);
+        var skill = await _skillRepository.GetSkillByName(skillName.ToUpper());
 
         if (skill == null)
         {
