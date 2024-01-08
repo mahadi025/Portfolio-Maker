@@ -55,6 +55,14 @@ public class ProjectController : BaseApiController
         return Ok(projectsToReturn);
     }
 
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<ProjectDto>> GetProjectById(int id)
+    {
+        var project = await _projectRepository.GetProjectByIdAsync(id);
+
+        return _mapper.Map<ProjectDto>(project);
+    }
+
     [HttpPost]
     public async Task<ActionResult<ProjectDto>> Register(ProjectRegisterDto registerDto)
     {
@@ -89,7 +97,7 @@ public class ProjectController : BaseApiController
     [HttpPut("edit-project/{projectName}")]
     public async Task<ActionResult<ProjectDto>> EditProject([FromRoute] string projectName, [FromBody] ProjectDto projectDto)
     {
-        var project = await _projectRepository.GetProject(projectName);
+        var project = await _projectRepository.GetProjectByNameAsync(projectName);
 
         if (project == null)
         {

@@ -45,7 +45,7 @@ public class SkillController : BaseApiController
     [HttpGet("get-skills-by-project/{projectName}")]
     public async Task<ActionResult<IEnumerable<SkillDto>>> GetSkillsByProject(string projectName)
     {
-        var project = await _projectRepository.GetProject(projectName);
+        var project = await _projectRepository.GetProjectByNameAsync(projectName);
 
         if (project == null)
         {

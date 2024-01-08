@@ -13,6 +13,21 @@ public class ProjectRepository : IProjectRepository
         _context = context;
     }
 
+    public async Task<IEnumerable<Project>> GetProjectsAsync()
+    {
+        return await _context.Projects.Include(p => p.Skills).ToListAsync();
+    }
+
+    public async Task<Project> GetProjectByNameAsync(string projectName)
+    {
+        return await _context.Projects.Include(p => p.Skills).SingleOrDefaultAsync(p => p.Name == projectName);
+    }
+
+    public async Task<Project> GetProjectByIdAsync(int id)
+    {
+        return await _context.Projects.Include(p => p.Skills).SingleOrDefaultAsync(p => p.Id == id);
+    }
+
     public async Task<List<Project>> GetProjectsByUserNameAsync(string username)
     {
         return await _context.Projects
@@ -20,10 +35,6 @@ public class ProjectRepository : IProjectRepository
         .ToListAsync();
     }
 
-    public async Task<IEnumerable<Project>> GetProjectsAsync()
-    {
-        return await _context.Projects.Include(p => p.Skills).ToListAsync();
-    }
 
     public async Task<bool> SaveAllAsync()
     {
@@ -35,8 +46,4 @@ public class ProjectRepository : IProjectRepository
         _context.Entry(project).State = EntityState.Modified;
     }
 
-    public async Task<Project> GetProject(string projectName)
-    {
-        return await _context.Projects.Include(p => p.Skills).SingleOrDefaultAsync(p => p.Name == projectName);
-    }
 }
