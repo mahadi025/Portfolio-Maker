@@ -5,6 +5,7 @@ import './App.css'
 import SkillList from './components/SkillList';
 import About from './components/About';
 import ProjectList from './components/ProjectList';
+import ProjectDetail from './components/ProjectDetail';
 
 function App() {
 
@@ -18,8 +19,8 @@ function App() {
             <Route exact path="/about" element={<About />} />
             <Route exact path="/skill" element={<SkillList />} />
             <Route exact path="/project" element={<ProjectList />} />
-            {/* <Route exact path="/project/:id" element={<ProjectDetail />} />
-            <Route exact path="/contact" element={<Contact />} />
+            <Route exact path="/project/:id" element={<ProjectDetail />} />
+            {/* <Route exact path="/contact" element={<Contact />} />
             <Route exact path="/test" element={<Test />} />
             <Route exact path="/detail" element={<ProjectDetail />} /> */}
           </Routes>

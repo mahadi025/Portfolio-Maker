@@ -1,0 +1,53 @@
+.project-detail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    background: var(--second-bg-color);
+}
+
+
+.project-detail-content{
+    margin: auto;
+}
+
+.project-heading {
+    text-align: center;
+    font-size: 7.5rem;
+}
+
+.project-description {
+    font-size: 1.5rem;
+    margin: 2rem 0 3rem;
+    text-align: center;
+    max-width: 600px;
+}
+
+
+.project-link {
+    text-align: center;
+    font-size: 4.5rem;
+}
+
+.project-link i {
+    font-size: 3.5rem;
+    color: var(--main-color);
+}
+
+.project-detail-content h3 {
+    font-size: 2rem;
+}
+
+.project-skills{
+    text-align: center;
+    font-size: 2.6rem;
+}
+
+.project-skills h3{
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.project-skills h4{
+    font-size: 1.3rem;
+}
