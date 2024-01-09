@@ -94,10 +94,10 @@ public class ProjectController : BaseApiController
         };
     }
 
-    [HttpPut("edit-project/{projectName}")]
-    public async Task<ActionResult<ProjectDto>> EditProject([FromRoute] string projectName, [FromBody] ProjectDto projectDto)
+    [HttpPut("edit-project/{id}")]
+    public async Task<ActionResult<ProjectDto>> EditProject([FromRoute] int id, [FromBody] ProjectDto projectDto)
     {
-        var project = await _projectRepository.GetProjectByNameAsync(projectName);
+        var project = await _projectRepository.GetProjectByIdAsync(id);
 
         if (project == null)
         {
