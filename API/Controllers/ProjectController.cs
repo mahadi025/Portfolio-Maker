@@ -119,22 +119,25 @@ public class ProjectController : BaseApiController
 
                     _context.Skills.Add(newSkill);
                     project.Skills.Add(newSkill);
+                    await _context.SaveChangesAsync();
                 }
                 else
                 {
                     if (!project.Skills.Any(projectSkill => projectSkill.Name.Equals(skillDto.Name, StringComparison.OrdinalIgnoreCase)))
                     {
                         project.Skills.Add(existingSkill);
+                        await _context.SaveChangesAsync();
                     }
                 }
             }
         }
 
         if (projectDto.Name != null) project.Name = projectDto.Name;
+
         if (projectDto.Url != null) project.Url = projectDto.Url;
+
         if (projectDto.Description != null) project.Description = projectDto.Description;
 
-        await _context.SaveChangesAsync();
 
         return new ProjectDto
         {
@@ -168,5 +171,6 @@ public class ProjectController : BaseApiController
     {
         return await _context.Projects.AnyAsync(x => x.Name == name);
     }
+
 
 }
