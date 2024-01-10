@@ -46,4 +46,8 @@ public class ProjectRepository : IProjectRepository
         _context.Entry(project).State = EntityState.Modified;
     }
 
+    public void DeleteProject(Project project)
+    {
+        _context.Projects.Remove(project);
+    }
 }

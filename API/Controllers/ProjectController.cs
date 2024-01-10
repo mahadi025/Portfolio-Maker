@@ -146,6 +146,23 @@ public class ProjectController : BaseApiController
         };
     }
 
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteProject(int id)
+    {
+        var project = await _projectRepository.GetProjectByIdAsync(id);
+
+        if (project == null)
+        {
+            return NotFound("Project not found");
+        }
+
+        _projectRepository.DeleteProject(project);
+
+        await _context.SaveChangesAsync();
+
+        return Ok("Successfully deleted the project");
+    }
+
 
     private async Task<bool> ProjectExists(string name)
     {
