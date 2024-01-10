@@ -6,14 +6,21 @@ import SkillList from './components/SkillList';
 import About from './components/About';
 import ProjectList from './components/ProjectList';
 import ProjectDetail from './components/ProjectDetail';
+import { useState } from 'react';
 
 function App() {
 
+  const [darkMode, setDarkMode] = useState(false);
+
+  function handleThemeToggle() {
+    setDarkMode(prev => !prev)
+  }
+
   return (
     <Router>
-      <div className="app">
-        <Header />
-        <div className="content">
+      <div className={`app ${darkMode ? 'light-mode' : ''}`}>
+        <Header darkMode={darkMode} handleThemeToggle={handleThemeToggle} />
+        <div>
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route exact path="/about" element={<About />} />
