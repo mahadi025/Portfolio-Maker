@@ -14,12 +14,12 @@ public class UserRepository : IUserRepository
     }
     public async Task<IEnumerable<AppUser>> GetUsersAsync()
     {
-        return await _context.Users.Include(p => p.Photos).Include(project => project.Projects).ToListAsync();
+        return await _context.Users.Include(p => p.Photos).Include(project => project.Projects).ThenInclude(project => project.Skills).ToListAsync();
     }
 
     public async Task<AppUser> GetUserByUsernameAsync(string username)
     {
-        return await _context.Users.Include(p => p.Photos).Include(project => project.Projects).SingleOrDefaultAsync(x => x.UserName == username);
+        return await _context.Users.Include(p => p.Photos).Include(project => project.Projects).ThenInclude(project => project.Skills).SingleOrDefaultAsync(x => x.UserName == username);
     }
 
     public async Task<AppUser> GetUserIdAsync(int id)
