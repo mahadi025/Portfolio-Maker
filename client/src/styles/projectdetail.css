@@ -21,6 +21,7 @@
     margin: 2rem 0 3rem;
     text-align: center;
     max-width: 600px;
+    color: var(--text-color);
 }
 
 
@@ -36,6 +37,7 @@
 
 .project-detail-content h3 {
     font-size: 2rem;
+    color: var(--text-color);
 }
 
 .project-skills{
@@ -50,4 +52,5 @@
 
 .project-skills h4{
     font-size: 1.3rem;
+    color: var(--text-color);
 }

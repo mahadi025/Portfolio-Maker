@@ -34,4 +34,5 @@
 
 .skills-box h3 {
     font-size: 2.6rem;
+    color: var(--text-color);
 }
