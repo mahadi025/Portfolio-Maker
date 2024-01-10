@@ -19,7 +19,12 @@ public class SkillRepository : ISkillRepository
         return await _context.Skills.ToListAsync();
     }
 
-    public async Task<Skill> GetSkillByName(string skillName)
+    public async Task<Skill> GetSkillById(int id)
+    {
+        return await _context.Skills.SingleOrDefaultAsync(s => s.Id == id);
+    }
+
+    public async Task<Skill> GetSkillById(string skillName)
     {
         return await _context.Skills.SingleOrDefaultAsync(s => s.Name == skillName);
     }
@@ -36,5 +41,16 @@ public class SkillRepository : ISkillRepository
     public async Task<bool> SaveAllAsync()
     {
         return await _context.SaveChangesAsync() > 0;
+    }
+
+    public void DeleteSkill(Skill skill)
+    {
+        _context.Skills.Remove(skill);
+    }
+
+
+    public Task<Skill> GetSkillByName(string skillName)
+    {
+        throw new NotImplementedException();
     }
 }
