@@ -100,6 +100,23 @@ public class SkillController : BaseApiController
         return Ok(updatedSkillDto);
     }
 
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteSkill(int id)
+    {
+        var skill = await _skillRepository.GetSkillById(id);
+
+        if (skill == null)
+        {
+            return NotFound("Skill not found");
+        }
+
+        _skillRepository.DeleteSkill(skill);
+
+        await _context.SaveChangesAsync();
+
+        return Ok("Successfully deleted the skill");
+    }
+
 
     private async Task<bool> SkillExists(string name)
     {
