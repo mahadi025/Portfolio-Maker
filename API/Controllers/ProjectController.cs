@@ -169,16 +169,4 @@ public class ProjectController : BaseApiController
         return await _context.Projects.AnyAsync(x => x.Name == name);
     }
 
-    private async Task<bool> SkillExistsOnProject(ProjectDto projectDto)
-    {
-        var projectName = projectDto.Name;
-
-        var skillNames = projectDto.Skills.Select(skill => skill.Name.ToUpper());
-
-        var exists = await _context.Projects
-            .AnyAsync(project => project.Name == projectName && project.Skills.Any(skill => skillNames.Contains(skill.Name.ToUpper())));
-
-        return exists;
-    }
-
 }
