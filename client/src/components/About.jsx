@@ -40,9 +40,9 @@ function About() {
                 <h3><span className="multiple-text2"></span></h3>
                 <p>Hello, My name is Mahadi Karim Munif. I graduated from East West University with BSC in Computer Science
                     Engineering. I love programming. I
-                    know <span className="multiple-text2"><i>C</i></span>, <span className="multiple-text2"><i>C++</i></span>, <span
-                        className="multiple-text2"><i>JAVA</i></span>, <span className="multiple-text2"><i>Python</i></span>,
-                    <span className="multiple-text2"><i>C#</i></span>, <span className="multiple-text2"><i>JavaScript</i></span>.
+                    know <span className="multiple-text2"><b>C</b></span>, <span className="multiple-text2"><b>C++</b></span>, <span
+                        className="multiple-text2"><b>JAVA</b></span>, <span className="multiple-text2"><b>Python</b></span>,
+                    <span className="multiple-text2"><b>C#</b></span>, <span className="multiple-text2"><b>JavaScript</b></span>.
                     I like to build different kinds of Android
                     apps using <span className="multiple-text2"><b>Android Studio</b></span> and Websites using <span
                         className="multiple-text2"><b>Django</b></span> and <span className="multiple-text2"><b>Flask</b></span>,
