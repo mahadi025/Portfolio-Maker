@@ -26,7 +26,7 @@ function App() {
     if (isLoggedOut) {
       setIsLoggedOut(false);
     }
-  }, [isLoggedOut]);
+  }, [user]);
 
 
   const handleLogout = () => {

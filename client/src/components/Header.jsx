@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
 import '../styles/header.css'
-import { getLoggedInUser } from "../auth";
 
 function Header(props) {
 
@@ -14,11 +12,11 @@ function Header(props) {
                 <Link to="/about">About</Link>
                 <Link to="/skill">Skills</Link>
                 <Link to="/project">Projects</Link>
-                <Link to="/contact">Contact</Link>
-                <button className="btn" id="theme-btn" onClick={props.handleThemeToggle}>
+                {/* <Link to="/contact">Contact</Link> */}
+                <button className="theme-btn" id="theme-btn" onClick={props.handleThemeToggle}>
                     <i className={`bx bx-adjust`}></i>
                 </button>
-                {props.user != null && <button className="btn" onClick={props.handleLogout}>Logout</button>}
+                {props.user != null && <button className="logout-btn" onClick={props.handleLogout}>Logout</button>}
             </nav>
         </header>
     );
