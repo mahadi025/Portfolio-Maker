@@ -14,13 +14,13 @@ function Login() {
         e.preventDefault();
 
         try {
-            const response = await axios.post('https://localhost:5001/api/account/login', {
+            const response = await axios.post('https://localhost:5001/api/account/login/', {
                 username: username,
                 password: password,
             });
-            // console.log('Login successful!', response.data);
             localStorage.setItem('token', response.data.token);
             navigateTo('/');
+            window.location.reload();
 
         } catch (error) {
             console.error('Login failed!', error.response.data);
