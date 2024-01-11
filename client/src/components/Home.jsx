@@ -6,13 +6,7 @@ import '../styles/home.css'
 import 'boxicons/css/boxicons.min.css';
 
 
-function Home(props) {
-
-    if (props.user) {
-        console.log('Logged-in user:', props.user);
-    } else {
-        console.log('User is not logged in');
-    }
+function Home() {
 
     useEffect(() => {
         const typed1 = new Typed(".multiple-text1", {
@@ -41,7 +35,7 @@ function Home(props) {
                     <a href="https://www.facebook.com/MahadiKarimMunif" target="_blank" rel="noreferrer"><i className="bx bxl-facebook"></i></a>
                     <a href="https://github.com/mahadi025" target="_blank" rel="noreferrer"><i className="bx bxl-github"></i></a>
                 </div>
-                <a href={pdf} target="_blank" className="btn" rel="noreferrer">Download Resume</a>
+                <a href={pdf} target="_blank" className="resume-btn" rel="noreferrer">Download Resume</a>
             </div>
             <div className="home-img">
                 <img src={profilePic} alt="" />
