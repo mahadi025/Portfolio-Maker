@@ -5,7 +5,14 @@ import pdf from "../assets/Mahadi.pdf"
 import '../styles/home.css'
 import 'boxicons/css/boxicons.min.css';
 
-function Home() {
+
+function Home(props) {
+
+    if (props.user) {
+        console.log('Logged-in user:', props.user);
+    } else {
+        console.log('User is not logged in');
+    }
 
     useEffect(() => {
         const typed1 = new Typed(".multiple-text1", {

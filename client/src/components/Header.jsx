@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import '../styles/header.css'
+import { getLoggedInUser } from "../auth";
 
 function Header(props) {
+
     return (
         <header className="header">
             <Link to="/" className="logo">Portfolio</Link>
@@ -15,6 +18,7 @@ function Header(props) {
                 <button className="btn" id="theme-btn" onClick={props.handleThemeToggle}>
                     <i className={`bx bx-adjust`}></i>
                 </button>
+                {props.user != null && <button className="btn" onClick={props.handleLogout}>Logout</button>}
             </nav>
         </header>
     );

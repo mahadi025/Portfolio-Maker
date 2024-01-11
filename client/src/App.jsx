@@ -6,7 +6,9 @@ import SkillList from './components/SkillList';
 import About from './components/About';
 import ProjectList from './components/ProjectList';
 import ProjectDetail from './components/ProjectDetail';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Login from './components/Login';
+import { getLoggedInUser } from './auth';
 
 function App() {
 
@@ -16,17 +18,36 @@ function App() {
     setDarkMode(prev => !prev)
   }
 
+  const [isLoggedOut, setIsLoggedOut] = useState(false);
+
+  const user = getLoggedInUser();
+
+  useEffect(() => {
+    if (isLoggedOut) {
+      setIsLoggedOut(false);
+    }
+  }, [isLoggedOut]);
+
+
+  const handleLogout = () => {
+
+    localStorage.removeItem('token');
+
+    setIsLoggedOut(true);
+  };
+
   return (
     <Router>
       <div className={`app ${darkMode ? 'light-mode' : ''}`}>
-        <Header darkMode={darkMode} handleThemeToggle={handleThemeToggle} />
+        <Header darkMode={darkMode} handleThemeToggle={handleThemeToggle} handleLogout={handleLogout} user={user} />
         <div>
           <Routes>
-            <Route exact path="/" element={<Home />} />
+            <Route exact path="/" element={<Home user={user} />} />
             <Route exact path="/about" element={<About />} />
             <Route exact path="/skill" element={<SkillList />} />
             <Route exact path="/project" element={<ProjectList />} />
             <Route exact path="/project/:id" element={<ProjectDetail />} />
+            <Route exact path="/login" element={<Login />} />
             {/* <Route exact path="/contact" element={<Contact />} />
             <Route exact path="/test" element={<Test />} />
             <Route exact path="/detail" element={<ProjectDetail />} /> */}
