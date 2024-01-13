@@ -78,39 +78,44 @@
     box-shadow: none;
 }
 
-/* ... Your existing styles ... */
-
 @media screen and (max-width: 768px) {
     .navbar {
         flex-direction: column;
+        align-items: center;
+        justify-content: center;
         position: absolute;
+        margin-left: auto;
         top: 60px;
         left: 0;
         width: 100%;
-        background-color: #333;
-        display: none; /* Start with display: none; */
+        background: var(--bg-color);
+        display: none;
     }
 
     .navbar a {
         padding: 15px;
         text-align: center;
-        width: 100%;
+        justify-content: center;
         display: block;
         color: white;
     }
 
     .navbar a:hover {
-        background-color: #555;
+        background-color: var(--bg-color);
     }
 
     .navbar.show {
-        display: flex; /* Change to flex when it needs to be visible */
+        display: flex;
     }
 
     #menu-icon {
         font-size: 3.6rem;
         color: var(--text-color);
-        display: inline-block; /* Make sure the menu icon is visible */
+        display: inline-block;
         cursor: pointer;
     }
+    .theme-btn{
+        margin: auto;
+    }
+
 }
