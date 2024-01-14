@@ -15,6 +15,12 @@ function App() {
   const [darkMode, setDarkMode] = useState(false);
 
   function handleThemeToggle() {
+    if (!darkMode) {
+      document.body.classList.add('light-mode');
+    }
+    else {
+      document.body.classList.remove('light-mode');
+    }
     setDarkMode(prev => !prev)
   }
 
