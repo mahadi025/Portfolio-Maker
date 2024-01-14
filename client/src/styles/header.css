@@ -1,121 +1,34 @@
-.header {
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 2rem 9%;
-    background: var(--bg-color);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 100;
+.header{
+    background-color: var(--second-bg-color);
 }
 
-.header.sticky {
-    border-bottom: .1rem solid rgba(0, 0, 0, .2);
+#nav-toggle{
+    margin-left: auto;
+    background-color: var(--main-color);
+    border: none;
 }
 
-.logo {
-    font-size: 2.5rem;
-    color: var(--text-color);
-    font-weight: 600;
-    cursor: default;
+#nav .nav-link{
+    color: var(--text-color)
 }
 
-
-.navbar a {
-    font-size: 1.7rem;
-    color: var(--text-color);
-    margin-left: 4rem;
-    transition: .3s;
-    padding-right: 1.5rem;
-}
-
-.navbar a:hover,
-.navbar a:active {
+#nav .nav-link:hover{
     color: var(--main-color);
 }
 
-#menu-icon {
-    font-size: 3.6rem;
-    color: var(--text-color);
-    display: none;
-}
-
 .theme-btn {
-    display: inline-block;
-    padding: 1rem 2.8rem;
+    display: flex;
+    justify-content: center;
+    padding: 1rem ;
     background: var(--main-color);
-    border-radius: 4rem;
+    border-radius: 2rem;
     box-shadow: 0 0 1rem var(--main-color);
-    font-size: 1.6rem;
-    color: var(--second-bg-color);
-    letter-spacing: .1rem;
-    font-weight: 600;
+    font-size: .8rem;
+    font-weight: 200;
     transition: .5s ease;
     cursor: pointer;
-    margin-right: 2rem;
 }
 
 .theme-btn:hover {
     box-shadow: none;
-}
-
-.logout-btn {
-    display: inline-block;
-    padding: .8rem 1.5rem;
-    background: red;
-    border-radius: 2rem;
-    box-shadow: 0 0 1rem var(--main-color);
-    font-size: 1.6rem;
-    color: var(--second-bg-color);
-    font-weight: 500;
-    transition: .5s ease;
-    cursor: pointer;
-
-}
-
-.logout-btn:hover {
-    box-shadow: none;
-}
-
-@media screen and (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        margin-left: auto;
-        top: 60px;
-        left: 0;
-        width: 100%;
-        background: var(--bg-color);
-        display: none;
-    }
-
-    .navbar a {
-        padding: 15px;
-        text-align: center;
-        justify-content: center;
-        display: block;
-        color: white;
-    }
-
-    .navbar a:hover {
-        background-color: var(--bg-color);
-    }
-
-    .navbar.show {
-        display: flex;
-    }
-
-    #menu-icon {
-        font-size: 3.6rem;
-        color: var(--text-color);
-        display: inline-block;
-        cursor: pointer;
-    }
-    .theme-btn{
-        margin: auto;
-    }
-
 }
