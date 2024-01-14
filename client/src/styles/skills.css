@@ -1,38 +1,36 @@
-.skills h2 {
-    margin-bottom: 5rem;
+.skill{
+    margin-top: 5rem;
+    max-width: 60rem;
 }
 
-.skills-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 2rem;
-}
-
-
-.skills-container .skills-box {
-    flex: 1 1 30rem;
+.card{
+    flex: 1 1 15rem;
     background: var(--second-bg-color);
-    padding: 3rem 2rem 4rem;
+    padding: 1.5rem 1.5rem 2rem;
     border-radius: 2rem;
     text-align: center;
-    border: .2rem solid var(--bg-color);
+    border: .5rem solid var(--bg-color);
+
 }
 
-.skills-container .skills-box:hover {
+.card :hover{
     border-color: var(--main-color);
     transform: scale(1.02);
     transition: .5s ease;
 }
 
 
-.skills-box i {
-    font-size: 7rem;
+.card i {
+    font-size: 4rem;
     color: var(--main-color);
 }
 
-.skills-box h3 {
+.card h5 {
+    font-size: 1.5rem;
+    color: var(--text-color);
+}
+
+.card h6 {
     font-size: 2.6rem;
     color: var(--text-color);
 }
