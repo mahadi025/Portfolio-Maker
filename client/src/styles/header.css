@@ -32,3 +32,20 @@
 .theme-btn:hover {
     box-shadow: none;
 }
+
+.logout-btn {
+    display: flex;
+    justify-content: center;
+    padding: 1rem ;
+    background: var(--main-color);
+    border-radius: 2rem;
+    box-shadow: 0 0 1rem var(--main-color);
+    font-size: .8rem;
+    font-weight: 200;
+    transition: .5s ease;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    box-shadow: none;
+}
