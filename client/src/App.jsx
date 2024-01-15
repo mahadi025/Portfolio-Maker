@@ -9,6 +9,7 @@ import ProjectDetail from './components/ProjectDetail';
 import { useState, useEffect } from 'react';
 import Login from './components/Login';
 import { getLoggedInUser } from './auth';
+import EditProject from './components/EditProject';
 
 function App() {
 
@@ -54,6 +55,7 @@ function App() {
             <Route exact path="/project" element={<ProjectList />} />
             <Route exact path="/project/:id" element={<ProjectDetail />} />
             <Route exact path="/login" element={<Login />} />
+            <Route exact path="/project/edit-project/:id" element={<EditProject />} />
             {/* <Route exact path="/contact" element={<Contact />} />
             <Route exact path="/test" element={<Test />} />
             <Route exact path="/detail" element={<ProjectDetail />} /> */}
