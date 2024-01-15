@@ -3,6 +3,7 @@ import '../styles/header.css'
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+
 function Header(props) {
     return (
         <Navbar expand="lg" className="header bg-body-tertiary">
@@ -26,7 +27,6 @@ function Header(props) {
                 </Navbar.Collapse>
             </Container>
         </Navbar>
-
     );
 }
 
