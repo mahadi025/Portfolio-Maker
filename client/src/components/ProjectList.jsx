@@ -10,7 +10,7 @@ function ProjectList() {
 
     return (
         <div className="project">
-            <h2 class="heading text-center">My <span>Projects</span></h2>
+            <h2 className="heading text-center">My <span>Projects</span></h2>
             <div className="project-container mt-4">
                 {projects.map(project => (
                     <Link to={`/project/${project.id}`} key={project.id}>
