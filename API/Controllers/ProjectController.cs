@@ -119,14 +119,12 @@ public class ProjectController : BaseApiController
 
                     _context.Skills.Add(newSkill);
                     project.Skills.Add(newSkill);
-                    await _context.SaveChangesAsync();
                 }
                 else
                 {
                     if (!project.Skills.Any(projectSkill => projectSkill.Name.Equals(skillDto.Name, StringComparison.OrdinalIgnoreCase)))
                     {
                         project.Skills.Add(existingSkill);
-                        await _context.SaveChangesAsync();
                     }
                 }
             }
@@ -138,6 +136,7 @@ public class ProjectController : BaseApiController
 
         if (projectDto.Description != null) project.Description = projectDto.Description;
 
+        await _context.SaveChangesAsync();
 
         return new ProjectDto
         {
