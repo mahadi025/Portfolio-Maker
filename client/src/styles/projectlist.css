@@ -1,21 +1,12 @@
-.project {
-    background-color: var(--second-bg-color);
-}
-
-.project h2 {
-    margin-top: 8.5rem;
-    margin-bottom: 4rem;
-    color: var(--text-color);
-}
-
-.project-container {
+.project-container{
+    margin-top: 5rem;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     align-items: center;
     gap: 2.5rem;
 }
 
-.project-container .project-box {
+.project-box {
     position: relative;
     border-radius: 2rem;
     box-shadow: 0 0 1rem var(--bg-color);
@@ -33,7 +24,7 @@
     cursor: pointer;
 }
 
-.project-box .project-layer {
+.project-layer {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -52,13 +43,4 @@
 
 .project-box:hover .project-layer {
     transform: translateY(0);
-}
-
-.project-layer h4 {
-    font-size: 3rem;
-}
-
-.project-layer p {
-    font-size: 1.6rem;
-    margin: .3rem 0 1rem;
 }
