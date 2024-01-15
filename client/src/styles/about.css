@@ -1,34 +1,14 @@
-.about {
+.about-container{
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 2rem;
-    background: var(--second-bg-color);
+    justify-content: center;
+    height: 100vh;
 }
+
+
 
 .about-img img {
     width: 20vw;
     border-radius: 50%;
     border: 3px solid var(--main-color);
-}
-
-.heading {
-    text-align: center;
-    font-size: 4.5rem;
-}
-
-.about-content h2 {
-    text-align: left;
-    line-height: 1.2;
-    color: var(--text-color);
-}
-
-.about-content h3 {
-    font-size: 2.6rem;
-}
-
-.about-content p {
-    font-size: 1.6rem;
-    margin: 2rem 0 3rem;
-    color: var(--text-color);
 }
