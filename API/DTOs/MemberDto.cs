@@ -11,6 +11,7 @@ public class MemberDto
     public string KnownAs { get; set; }
     public string Gender { get; set; }
     public string Introduction { get; set; }
+    public string City { get; set; }
     public string Country { get; set; }
     public List<PhotoDto> Photos { get; set; }
     public List<ProjectDto> Projects { get; set; }
