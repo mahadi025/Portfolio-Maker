@@ -485,3 +485,4 @@ $RECYCLE.BIN/
 API/portfolio.db
 API/portfolio.db-shm
 API/portfolio.db-wal
+API/appsettings.json
