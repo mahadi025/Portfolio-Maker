@@ -55,29 +55,6 @@ function About() {
                 </div>
             </div>
         </div>
-
-        // <section className="about" id="about">
-        //     <div className="about-img">
-        //         <img src={profilePic} alt="" />
-        //     </div>
-        //     <div className="about-content">
-        //         <h2 className="heading">About <span>ME</span></h2>
-        //         <h3><span className="multiple-text2"></span></h3>
-        //         <p>Hello, My name is Mahadi Karim Munif. I graduated from East West University with BSC in Computer Science
-        //             Engineering. I love programming. I
-        //             know <span><i>C</i></span>, <span><i>C++</i></span>, <span><i>JAVA</i></span>,
-        //             <span><i>Python</i></span>,
-        //             <span><i>C#</i></span>, <span><i>JavaScript</i></span>.
-        //             I like to build different kinds of Android
-        //             apps using <span><b>Android Studio</b></span> and Websites using <span><b>Django</b></span> and
-        //             <span><b>Flask</b></span>,
-        //             and <span><b>ASP.NET</b></span> I
-        //             also have experience in data science, machine learning, and image processing.
-        //             <br />
-        //             I like to learn from <span className="multiple-text3"></span>
-        //         </p>
-        //     </div>
-        // </section>
     );
 }
 
