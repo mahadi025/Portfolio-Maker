@@ -29,6 +29,8 @@ function App() {
 
   const user = getLoggedInUser();
 
+  console.log(user)
+
   useEffect(() => {
     if (isLoggedOut) {
       setIsLoggedOut(false);
@@ -38,7 +40,7 @@ function App() {
 
   const handleLogout = () => {
 
-    localStorage.removeItem('token');
+    localStorage.removeItem('user');
 
     setIsLoggedOut(true);
   };

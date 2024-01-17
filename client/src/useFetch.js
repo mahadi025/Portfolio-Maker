@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import axios from 'axios';
+import { getLoggedInUserToken } from "./auth";
+
 
 const useFetch = (url) => {
     const [data, setData] = useState([]);
@@ -8,16 +11,25 @@ const useFetch = (url) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(url);
+                const token = getLoggedInUserToken();
+                console.log(token);
 
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
+                const headers = token
+                    ? {
+                        Authorization: `Bearer ${token}`,
+                    }
+                    : {};
+
+                const response = await axios.get(url, { headers });
+
+                if (response.status !== 200) {
+                    throw new Error('Network response was not ok');
                 }
 
-                const data = await response.json();
-                setData(data);
-            } catch (error) {
-                setError(error);
+                const responseData = response.data;
+                setData(responseData);
+            } catch (err) {
+                setError(err);
             } finally {
                 setLoading(false);
             }

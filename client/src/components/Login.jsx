@@ -18,7 +18,7 @@ function Login() {
                 username: username,
                 password: password,
             });
-            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('user', JSON.stringify(response.data));
             navigateTo('/');
             window.location.reload();
 

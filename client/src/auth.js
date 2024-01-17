@@ -1,24 +1,42 @@
 export const getLoggedInUser = () => {
-    const token = localStorage.getItem('token');
-    if (!token) {
+
+    const userString = localStorage.getItem('user');
+
+
+
+    if (!userString) {
         return null;
     }
+
+    const user = JSON.parse(userString);
+
+    const username = user.username;
+
+
     try {
-        const user = parseJwt(token);
-        return user.nameid;
+        return username;
     } catch (error) {
-        console.error('Error decoding token:', error);
+        console.error(error);
         return null;
     }
 };
 
-function parseJwt(token) {
-    const base64Url = token.split('.')[1];
+export const getLoggedInUserToken = () => {
 
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const userString = localStorage.getItem('user');
 
-    const jsonPayload = decodeURIComponent(atob(base64).split('').map((c) => `%${(`00${c.charCodeAt(0).toString(16)}`).slice(-2)}`).join(''));
+    if (!userString) {
+        return null;
+    }
 
-    return JSON.parse(jsonPayload);
+    const user = JSON.parse(userString);
+
+    const token = user.token;
+
+    try {
+        return token;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
 };
-
