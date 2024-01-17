@@ -4,6 +4,7 @@ using API.Entities;
 using API.Extensions;
 using API.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -63,6 +64,7 @@ public class ProjectController : BaseApiController
         return _mapper.Map<ProjectDto>(project);
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<ActionResult<ProjectDto>> Register(ProjectRegisterDto registerDto)
     {
@@ -94,6 +96,7 @@ public class ProjectController : BaseApiController
         };
     }
 
+    [Authorize]
     [HttpPut("edit-project/{id}")]
     public async Task<ActionResult<ProjectDto>> EditProject([FromRoute] int id, [FromBody] ProjectDto projectDto)
     {
