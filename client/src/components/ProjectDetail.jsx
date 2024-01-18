@@ -1,13 +1,27 @@
 import { Link, useParams } from "react-router-dom";
-import useFetch from '../useFetch';
+import axios from "axios";
 import 'boxicons/css/boxicons.min.css';
 import '../styles/projectdetail.css'
+import { useEffect, useState } from "react";
 
 function ProjectDetail() {
     const { id } = useParams();
 
-    const { data: project, error, isPending } = useFetch("https://localhost:5001/api/project/" + id);
-    // console.log(project);
+    const [project, setProject] = useState([]);
+
+    useEffect(() => {
+        async function getProject() {
+            try {
+                const response = await axios.get('https://localhost:5001/api/project/' + id);
+                if (response.status !== 200) throw new Error('Network response was not ok');
+                setProject(response.data);
+            }
+            catch (error) {
+                console.log(error);
+            }
+        }
+        getProject();
+    }, [id])
 
     return (
         <div className="container project-detail">
