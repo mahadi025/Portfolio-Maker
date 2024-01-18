@@ -16,13 +16,15 @@ public class ProjectController : BaseApiController
     private readonly IProjectRepository _projectRepository;
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
+    private readonly ISkillRepository _skillRepository;
 
-    public ProjectController(DataContext context, IProjectRepository projectRepository, IUserRepository userRepository, IMapper mapper)
+    public ProjectController(DataContext context, IProjectRepository projectRepository, IUserRepository userRepository, IMapper mapper, ISkillRepository skillRepository)
     {
         _context = context;
         _projectRepository = projectRepository;
         _userRepository = userRepository;
         _mapper = mapper;
+        _skillRepository = skillRepository;
     }
     [HttpGet]
     public async Task<ActionResult<IEnumerable<ProjectDto>>> GetProjects()
@@ -106,44 +108,39 @@ public class ProjectController : BaseApiController
         {
             return NotFound("Project not found");
         }
-
-        if (projectDto.Skills == null || !projectDto.Skills.Any())
-        {
-            project.Skills.Clear();
-        }
-
-        else
+        if (projectDto.Skills != null)
         {
             foreach (var skillDto in projectDto.Skills)
             {
-                var existingSkill = await _context.Skills.FirstOrDefaultAsync(x => x.Name == skillDto.Name.ToUpper());
-
-                if (existingSkill == null && skillDto.Name.Length > 0)
+                if (!string.IsNullOrEmpty(skillDto.Name))
                 {
-                    var newSkill = new Skill
-                    {
-                        Name = skillDto.Name.ToUpper()
-                    };
+                    var existingSkill = await _context.Skills.FirstOrDefaultAsync(x => x.Name == skillDto.Name.ToUpper());
 
-                    _context.Skills.Add(newSkill);
-
-                    project.Skills.Add(newSkill);
-                }
-                else
-                {
-                    if (!project.Skills.Any(projectSkill => projectSkill.Name.Equals(skillDto.Name, StringComparison.OrdinalIgnoreCase)))
+                    if (existingSkill == null)
                     {
-                        project.Skills.Add(existingSkill);
+                        var newSkill = new Skill
+                        {
+                            Name = skillDto.Name.ToUpper()
+                        };
+
+                        _context.Skills.Add(newSkill);
+                        project.Skills.Add(newSkill);
+                    }
+                    else
+                    {
+                        if (!project.Skills.Any(projectSkill => projectSkill.Name.Equals(skillDto.Name, StringComparison.OrdinalIgnoreCase)))
+                        {
+                            project.Skills.Add(existingSkill);
+                        }
                     }
                 }
-                await _context.SaveChangesAsync();
             }
+
+            await _context.SaveChangesAsync();
         }
 
         if (projectDto.Name != null) project.Name = projectDto.Name;
-
         if (projectDto.Url != null) project.Url = projectDto.Url;
-
         if (projectDto.Description != null) project.Description = projectDto.Description;
 
         await _context.SaveChangesAsync();
@@ -157,6 +154,50 @@ public class ProjectController : BaseApiController
             Skills = project.Skills
         };
     }
+
+
+    [Authorize]
+    [HttpPut("remove-skill-from-project/{projectId}/{skillId}")]
+    public async Task<ActionResult<ProjectDto>> RemoveSkillFromProject([FromRoute] int projectId, [FromRoute] int skillId)
+    {
+        var project = await _projectRepository.GetProjectByIdAsync(projectId);
+
+        if (project == null)
+        {
+            return NotFound("Project not found");
+        }
+
+        var skill = _skillRepository.GetSkillById(skillId);
+
+        if (skill == null)
+        {
+            return NotFound("Skill not found");
+        }
+
+        var skillToRemove = project.Skills.FirstOrDefault(projectSkill =>
+            projectSkill.Id == skillId);
+
+        if (skillToRemove != null)
+        {
+            project.Skills.Remove(skillToRemove);
+            await _context.SaveChangesAsync();
+        }
+        else
+        {
+            return NotFound("Skill not found in project");
+        }
+
+        return new ProjectDto
+        {
+            Id = project.Id,
+            Name = project.Name,
+            Url = project.Url,
+            Description = project.Description,
+            Skills = project.Skills
+        };
+    }
+
+
 
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteProject(int id)
