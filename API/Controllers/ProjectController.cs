@@ -107,13 +107,18 @@ public class ProjectController : BaseApiController
             return NotFound("Project not found");
         }
 
-        if (projectDto.Skills != null)
+        if (projectDto.Skills == null || !projectDto.Skills.Any())
+        {
+            project.Skills.Clear();
+        }
+
+        else
         {
             foreach (var skillDto in projectDto.Skills)
             {
                 var existingSkill = await _context.Skills.FirstOrDefaultAsync(x => x.Name == skillDto.Name.ToUpper());
 
-                if (existingSkill == null)
+                if (existingSkill == null && skillDto.Name.Length > 0)
                 {
                     var newSkill = new Skill
                     {
@@ -121,6 +126,7 @@ public class ProjectController : BaseApiController
                     };
 
                     _context.Skills.Add(newSkill);
+
                     project.Skills.Add(newSkill);
                 }
                 else
@@ -130,6 +136,7 @@ public class ProjectController : BaseApiController
                         project.Skills.Add(existingSkill);
                     }
                 }
+                await _context.SaveChangesAsync();
             }
         }
 
