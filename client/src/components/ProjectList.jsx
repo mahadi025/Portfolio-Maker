@@ -1,12 +1,27 @@
 import 'boxicons/css/boxicons.min.css';
 import projectPic from "../assets/project.jpg"
-import useFetch from '../useFetch';
 import '../styles/projectlist.css'
-
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function ProjectList() {
-    const { data: projects, loading, error } = useFetch('https://localhost:5001/api/Project');
+
+    const [projects, setProjects] = useState([]);
+
+    useEffect(() => {
+        async function getProjects() {
+            try {
+                const response = await axios.get('https://localhost:5001/api/project');
+                if (response.status !== 200) throw new Error('Network response was not ok');
+                setProjects(response.data);
+            }
+            catch (error) {
+                console.log(error);
+            }
+        }
+        getProjects();
+    }, [])
 
     return (
         <div className="project">
@@ -17,7 +32,7 @@ function ProjectList() {
                         <div className="project-box">
                             <img src={projectPic} alt="" />
                             <div className="project-layer">
-                                <h4>Advising Portal</h4>
+                                <h4>{project.name}</h4>
                             </div>
                         </div>
                     </Link>
