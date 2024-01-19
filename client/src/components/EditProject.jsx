@@ -30,7 +30,7 @@ function EditProject() {
                     skills: response.data.skills.map(skill => skill.name).join(', ')
                 });
             } catch (error) {
-                console.log(error);
+                console.log(error.response.data);
             }
         }
         getProject();
@@ -75,7 +75,7 @@ function EditProject() {
             console.log('Server response:', response.data);
             navigateTo(`/project/${id}`);
         } catch (error) {
-            console.error(error);
+            console.error(error.response.data);
         }
     };
     return (
