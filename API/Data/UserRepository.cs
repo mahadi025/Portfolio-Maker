@@ -22,9 +22,9 @@ public class UserRepository : IUserRepository
         return await _context.Users.Include(p => p.Photos).Include(project => project.Projects).ThenInclude(project => project.Skills).SingleOrDefaultAsync(x => x.UserName == username);
     }
 
-    public async Task<AppUser> GetUserIdAsync(int id)
+    public async Task<AppUser> GetUserByIdAsync(int id)
     {
-        return await _context.Users.FindAsync(id);
+        return await _context.Users.Include(p => p.Photos).Include(project => project.Projects).ThenInclude(project => project.Skills).SingleOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<bool> SaveAllAsync()
