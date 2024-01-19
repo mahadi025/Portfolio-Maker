@@ -32,11 +32,11 @@ function About() {
 
     return (
         <div className="container about-container">
-            <div className="row d-flex align-items-center justify-content-center">
-                <div className="col-4 about-img">
+            <div className="d-flex align-items-center justify-content-center">
+                <div className="about-img">
                     <img className="rounded-circle" src={profilePic} alt="" />
                 </div>
-                <div className="col-8 about-content">
+                <div className="about-content pl-2">
                     <h2 className="heading">About <span>ME</span></h2>
                     <h3><span className="multiple-text2"></span></h3>
                     <p>Hello, My name is Mahadi Karim Munif. I graduated from East West University with BSC in Computer Science
