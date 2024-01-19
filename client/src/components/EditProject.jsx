@@ -79,29 +79,32 @@ function EditProject() {
         }
     };
     return (
-        <div>
-            <form className="edit-project-form" onSubmit={handleSubmit}>
-                <input
-                    value={editProject.name}
-                    type="text"
-                    name="name"
-                    onChange={handleInputChange}
-                />
-                <input
-                    value={editProject.description}
-                    type="text"
-                    name="description"
-                    onChange={handleInputChange}
-                />
-                <input
-                    value={editProject.skills}
-                    type="text"
-                    name="skills"
-                    placeholder="Enter skills separated by commas"
-                    onChange={handleInputChange}
-                />
-                <button type="submit">Submit</button>
-            </form>
+        <div className="d-flex justify-content-center align-items-center mt-5">
+            <div>
+                <form className="edit-project-form" onSubmit={handleSubmit}>
+                    <input
+                        value={editProject.name}
+                        type="text"
+                        name="name"
+                        onChange={handleInputChange}
+                    />
+                    <input
+                        value={editProject.description}
+                        type="text"
+                        name="description"
+                        onChange={handleInputChange}
+                    />
+                    <input
+                        value={editProject.skills}
+                        type="text"
+                        name="skills"
+                        placeholder="Enter skills separated by commas"
+                        onChange={handleInputChange}
+                    />
+                    <button className="btn btn-success" type="submit">Submit</button>
+                </form>
+                <button onClick={() => { navigateTo(-1); }} className="btn btn-warning mt-3">Back</button>
+            </div>
         </div>
     );
 }
