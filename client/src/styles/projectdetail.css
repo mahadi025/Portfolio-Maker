@@ -8,3 +8,28 @@
     width: 18rem;
 
 }
+
+.project-body a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    background: transparent;
+    border: .2rem solid var(--main-color);
+    border-radius: 50%;
+    font-size: 2rem;
+    color: var(--main-color);
+    margin: 3rem 1.5rem 3rem 0;
+}
+
+.project-body a:hover {
+    color: var(--second-bg-color);
+    box-shadow: 0 0 1rem var(--main-color);
+    text-decoration: none;
+}
+
+.project-body i{
+    font-size: 3rem;
+    color: var(--main-color);
+}
