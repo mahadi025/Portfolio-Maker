@@ -15,6 +15,7 @@ function Header(props) {
                         <Nav.Link as={Link} to="/about" className="nav-link">About</Nav.Link>
                         <Nav.Link as={Link} to="/skill" className="nav-link">Skills</Nav.Link>
                         <Nav.Link as={Link} to="/project" className="nav-link">Projects</Nav.Link>
+                        {props.user && <Nav.Link as={Link} to="/profile" className="nav-link">Profile</Nav.Link>}
                         {props.user != null && (
                             <button className="logout-btn" onClick={props.handleLogout}>
                                 <i className='bx bx-log-out' ></i>
