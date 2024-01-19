@@ -10,6 +10,7 @@ import { useState, useEffect } from 'react';
 import Login from './components/Login';
 import { getLoggedInUser } from './auth';
 import EditProject from './components/EditProject';
+import Profile from './components/Profile';
 
 function App() {
 
@@ -57,6 +58,7 @@ function App() {
             <Route exact path="/project" element={<ProjectList />} />
             <Route exact path="/project/:id" element={<ProjectDetail user={user} />} />
             <Route exact path="/login" element={<Login />} />
+            <Route exact path="/profile" element={<Profile user={user} />} />
             <Route exact path="/project/edit-project/:id" element={<EditProject />} />
             <Route exact path="/remove-skill-from-project/:projectId/:skillId" />
           </Routes>
