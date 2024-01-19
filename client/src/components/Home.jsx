@@ -32,33 +32,6 @@ function Home(props) {
         };
     }, []);
 
-
-    // if (props.user) {
-    //     const { data: user, error, isPending } = useFetch("https://localhost:5001/api/users/" + props.user);
-
-    //     console.log(user);
-    // }
-
-    // const fetchData = async () => {
-    //     try {
-    //         const response = await axios.get('https://localhost:5001/api/users/' + props.user, {
-    //             headers: {
-    //                 Authorization: `Bearer ${localStorage.getItem('token')}`,
-    //             },
-    //         });
-
-    //         // Handle the response data
-    //         console.log(response.data);
-    //     } catch (error) {
-    //         // Handle errors
-    //         console.error('Error fetching data:', error);
-    //     }
-    // };
-
-    // if (props.user) {
-    //     fetchData();
-    // }
-
     return (
         <div className="container">
             <div className="home row">
