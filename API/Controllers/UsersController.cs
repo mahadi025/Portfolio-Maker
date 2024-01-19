@@ -35,9 +35,17 @@ public class UsersController : BaseApiController
     }
 
     [HttpGet("{username}")]
-    public async Task<ActionResult<MemberDto>> GetUser(string username)
+    public async Task<ActionResult<MemberDto>> GetUserByUsername(string username)
     {
         var user = await _userRepository.GetUserByUsernameAsync(username);
+
+        return _mapper.Map<MemberDto>(user);
+    }
+
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<MemberDto>> GetUserById(int id)
+    {
+        var user = await _userRepository.GetUserByIdAsync(id);
 
         return _mapper.Map<MemberDto>(user);
     }
@@ -81,7 +89,7 @@ public class UsersController : BaseApiController
 
         if (await _userRepository.SaveAllAsync())
         {
-            return CreatedAtAction(nameof(GetUser), new { username = user.UserName }, _mapper.Map<PhotoDto>(photo));
+            return CreatedAtAction(nameof(GetUserByUsername), new { username = user.UserName }, _mapper.Map<PhotoDto>(photo));
         }
 
         return BadRequest("Problem adding photo");
