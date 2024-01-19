@@ -3,7 +3,7 @@
     max-width: 60rem;
 }
 
-.card{
+.skill .card{
     flex: 1 1 15rem;
     background: var(--second-bg-color);
     padding: 1.5rem 1.5rem 2rem;
@@ -13,24 +13,24 @@
 
 }
 
-.card :hover{
+.skill .card :hover{
     border-color: var(--main-color);
     transform: scale(1.02);
     transition: .5s ease;
 }
 
 
-.card i {
+.skill .card i {
     font-size: 4rem;
     color: var(--main-color);
 }
 
-.card h5 {
+.skill .card h5 {
     font-size: 1.5rem;
     color: var(--text-color);
 }
 
-.card h6 {
+.skill .card h6 {
     font-size: 2.6rem;
     color: var(--text-color);
 }
