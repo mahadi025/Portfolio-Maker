@@ -124,6 +124,7 @@ public class ProjectController : BaseApiController
                         };
 
                         _context.Skills.Add(newSkill);
+
                         project.Skills.Add(newSkill);
                     }
                     else
@@ -140,7 +141,9 @@ public class ProjectController : BaseApiController
         }
 
         if (projectDto.Name != null) project.Name = projectDto.Name;
+
         if (projectDto.Url != null) project.Url = projectDto.Url;
+
         if (projectDto.Description != null) project.Description = projectDto.Description;
 
         await _context.SaveChangesAsync();
