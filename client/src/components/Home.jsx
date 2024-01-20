@@ -4,8 +4,6 @@ import { useEffect } from "react";
 import pdf from "../assets/Mahadi.pdf"
 import '../styles/home.css'
 import 'boxicons/css/boxicons.min.css';
-import useFetch from "../useFetch";
-import axios from "axios";
 
 function Home(props) {
 
