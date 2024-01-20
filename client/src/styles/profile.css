@@ -4,4 +4,18 @@
     justify-content: center;
     width: 40rem;
     margin-top: 2rem;
+
+}
+
+.profile-card{
+    width: 40rem;
+    background: var(--second-bg-color);
+    padding: 1.5rem 1.5rem 2rem;
+    border-radius: 2rem;
+    text-align: center;
+    border: .5rem solid var(--bg-color);
+}
+
+.profile-card img{
+    border-radius: 2rem;
 }
