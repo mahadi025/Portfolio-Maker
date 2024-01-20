@@ -51,7 +51,7 @@ public class UsersController : BaseApiController
     }
 
     [HttpPut]
-    public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto)
+    public async Task<ActionResult<MemberDto>> UpdateUser(MemberUpdateDto memberUpdateDto)
     {
         var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
 
@@ -61,7 +61,7 @@ public class UsersController : BaseApiController
 
         if (await _userRepository.SaveAllAsync()) return NoContent();
 
-        return BadRequest("Failed to update the user");
+        return _mapper.Map<MemberDto>(user);
     }
 
     [HttpPost("add-photo")]
