@@ -3,7 +3,7 @@ import projectPic from "../assets/project.jpg"
 import '../styles/projectlist.css'
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../axiosConfig';
 
 function ProjectList() {
 
@@ -12,7 +12,7 @@ function ProjectList() {
     useEffect(() => {
         async function getProjects() {
             try {
-                const response = await axios.get('https://localhost:5001/api/project');
+                const response = await axios.get('/project');
                 if (response.status !== 200) throw new Error('Network response was not ok');
                 setProjects(response.data);
             }

@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axios from '../axiosConfig';
 import { getLoggedInUserToken } from "../auth";
 import '../styles/profile.css'
+import { Link } from "react-router-dom";
 
 function Profile(props) {
 
@@ -19,7 +20,7 @@ function Profile(props) {
 
             try {
                 const response = await axios.get(
-                    `https://localhost:5001/api/users/${props.user}`,
+                    `/users/${props.user}`,
                     {
                         headers: {
                             'Content-Type': 'application/json',
@@ -49,6 +50,9 @@ function Profile(props) {
                     <p className="card-text">I am {user.age} years old</p>
                     <p className="card-text">I am from {user.city}, {user.country}</p>
                 </div>
+                <Link to="edit-profile">
+                    <button className="btn btn-info">Edit Profile</button>
+                </Link>
             </div>
         </div>
     )

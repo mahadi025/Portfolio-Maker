@@ -1,5 +1,5 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
+import axios from '../axiosConfig';
 import 'boxicons/css/boxicons.min.css';
 import '../styles/projectdetail.css'
 import { useEffect, useState } from "react";
@@ -15,7 +15,7 @@ function ProjectDetail(props) {
     useEffect(() => {
         async function getProject() {
             try {
-                const response = await axios.get('https://localhost:5001/api/project/' + id);
+                const response = await axios.get('/project/' + id);
                 if (response.status !== 200) throw new Error('Network response was not ok');
                 setProject(response.data);
             }
@@ -73,7 +73,7 @@ function ProjectDetail(props) {
                     <div className="d-flex justify-content-center align-items-center">
                         <i onClick={() => { navigate(-1); }} className='bx bxs-left-arrow back-btn mr-auto'></i>
                         {props.user && <Link to={`/project/edit-project/${project.id}`}>
-                            <i class='bx bxs-message-square-edit edit-project'></i>
+                            <i className='bx bxs-message-square-edit edit-project'></i>
                         </Link>}
                     </div>
                 </div>
