@@ -13,6 +13,7 @@ import EditProject from './components/EditProject';
 import Profile from './components/Profile';
 import EditProfile from './components/EditProfile';
 import CreateProject from './components/CreateProject';
+import Register from './components/Register';
 
 function App() {
 
@@ -61,6 +62,7 @@ function App() {
             <Route exact path="/create-project" element={<CreateProject />} />
             <Route exact path="/project/:id" element={<ProjectDetail user={user} />} />
             <Route exact path="/login" element={<Login />} />
+            <Route exact path="/register" element={<Register />} />
             <Route exact path="/profile" element={<Profile user={user} />} />
             <Route exact path="profile/edit-profile" element={<EditProfile user={user} />} />
             <Route exact path="/project/edit-project/:id" element={<EditProject />} />
