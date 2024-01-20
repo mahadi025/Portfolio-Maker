@@ -8,9 +8,11 @@ import { getLoggedInUserToken } from "../auth";
 function ProjectDetail(props) {
     const { id } = useParams();
 
-    const navigate = useNavigate();
+    const navigateTo = useNavigate();
 
     const [project, setProject] = useState([]);
+
+    const token = getLoggedInUserToken();
 
     useEffect(() => {
         async function getProject() {
@@ -27,7 +29,6 @@ function ProjectDetail(props) {
     }, [id])
 
     const handleRemoveSkill = async (skillId) => {
-        const token = getLoggedInUserToken();
 
         if (!token) {
             return;
@@ -35,7 +36,7 @@ function ProjectDetail(props) {
 
         try {
             const response = await axios.put(
-                `https://localhost:5001/api/project/remove-skill-from-project/${project.id}/${skillId}`,
+                `/project/remove-skill-from-project/${project.id}/${skillId}`,
                 null,
                 {
                     headers: {
@@ -56,6 +57,29 @@ function ProjectDetail(props) {
         }
     };
 
+    const deleteProject = async () => {
+
+        if (!token) {
+            return;
+        }
+
+        try {
+            const response = await axios.delete(`/project/${project.id}`,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`,
+                    },
+                }
+            )
+
+            navigateTo("/project")
+        }
+        catch (error) {
+            console.error(error.response.data);
+        }
+    }
+
     return (
         <div className="container project-detail">
             <div className="card">
@@ -71,10 +95,11 @@ function ProjectDetail(props) {
                         </div>
                     ))}
                     <div className="d-flex justify-content-center align-items-center">
-                        <i onClick={() => { navigate(-1); }} className='bx bxs-left-arrow back-btn mr-auto'></i>
+                        <i onClick={() => { navigateTo(-1); }} className='bx bxs-left-arrow back-btn mr-auto'></i>
                         {props.user && <Link to={`/project/edit-project/${project.id}`}>
                             <i className='bx bxs-message-square-edit edit-project'></i>
                         </Link>}
+                        <i onClick={deleteProject} className='bx bx-folder-minus'></i>
                     </div>
                 </div>
             </div>

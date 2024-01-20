@@ -12,6 +12,7 @@ import { getLoggedInUser } from './auth';
 import EditProject from './components/EditProject';
 import Profile from './components/Profile';
 import EditProfile from './components/EditProfile';
+import CreateProject from './components/CreateProject';
 
 function App() {
 
@@ -57,6 +58,7 @@ function App() {
             <Route exact path="/about" element={<About />} />
             <Route exact path="/skill" element={<SkillList />} />
             <Route exact path="/project" element={<ProjectList />} />
+            <Route exact path="/create-project" element={<CreateProject />} />
             <Route exact path="/project/:id" element={<ProjectDetail user={user} />} />
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/profile" element={<Profile user={user} />} />
