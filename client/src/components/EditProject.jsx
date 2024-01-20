@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import axios from '../axiosConfig';
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { getLoggedInUserToken } from "../auth";
@@ -8,7 +8,6 @@ function EditProject() {
     const { id } = useParams();
     const navigateTo = useNavigate();
 
-    const [project, setProject] = useState(null);
     const [editProject, setEditProject] = useState({
         name: '',
         description: '',
@@ -18,11 +17,9 @@ function EditProject() {
     useEffect(() => {
         async function getProject() {
             try {
-                const response = await axios.get(`https://localhost:5001/api/project/${id}`);
+                const response = await axios.get(`/project/${id}`);
 
                 if (response.status !== 200) throw new Error('Network response was not ok');
-
-                setProject(response.data);
 
                 setEditProject({
                     name: response.data.name || '',
@@ -62,7 +59,7 @@ function EditProject() {
             };
 
             const response = await axios.put(
-                `https://localhost:5001/api/project/edit-project/${id}`,
+                `/project/edit-project/${id}`,
                 JSON.stringify(payload),
                 {
                     headers: {
@@ -78,6 +75,7 @@ function EditProject() {
             console.error(error.response.data);
         }
     };
+
     return (
         <div className="d-flex justify-content-center align-items-center mt-5">
             <div>
