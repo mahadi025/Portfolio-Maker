@@ -12,7 +12,6 @@ body{
     color: var(--text-color);
 }
 
-
 .light-mode {
     --bg-color: #fff;
     --second-bg-color: #FFFDD0;
@@ -36,78 +35,8 @@ label{
     font-size: 1.5rem;
 }
 
-@media (max-width: 991px) {
-    .header {
-        padding: 2rem;
-    }
-
-    .project {
-        padding-bottom: 7rem;
-    }
-
-    .contact {
-        min-height: auto;
-    }
-}
-
-
-
-
-@media (max-width: 768px) {
-
-    .home {
-        flex-direction: column;
-    }
-
-    .home-content h3 {
-        font-size: 2.6rem;
-    }
-
-    .home-img{
-        width: 70vw;
-        margin-top: 4rem;
-    }
-
-    .about {
-        flex-direction: column-reverse;
-    }
-
-    .about-img {
-        width: 70vw;
-        margin-top: 4rem;
-    }
-
-    .project h2 {
-        margin-bottom: 3rem;
-    }
-
-    .project-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-
-@media (max-width: 617px) {
-    .project-container {
-        grid-template-columns: 1fr;
-    }
-}
-
-
 @media (max-width: 450px) {
     html {
         font-size: 50%;
     }
-}
-
-
-@media (max-width: 365px) {
-    .home-img {
-        width: 90vw;
-    }
-
-    .about-img {
-        width: 90vw;
-    }
-
 }
