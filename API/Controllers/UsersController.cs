@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
-[Authorize]
 public class UsersController : BaseApiController
 {
     private readonly IUserRepository _userRepository;
@@ -64,6 +63,7 @@ public class UsersController : BaseApiController
         return _mapper.Map<MemberDto>(user);
     }
 
+    [Authorize]
     [HttpPost("add-photo")]
     public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file)
     {
@@ -95,6 +95,7 @@ public class UsersController : BaseApiController
         return BadRequest("Problem adding photo");
     }
 
+    [Authorize]
     [HttpPut("set-main-photo/{photoId}")]
     public async Task<ActionResult> SetMainPhoto(int photoId)
     {
@@ -119,6 +120,7 @@ public class UsersController : BaseApiController
         return BadRequest("Problem setting the main photo");
     }
 
+    [Authorize]
     [HttpDelete("delete-photo/{photoId}")]
     public async Task<ActionResult> DeletePhoto(int photoId)
     {
