@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import axios from '../axiosConfig';
-import { getLoggedInUserToken } from "../auth";
+import { getLoggedInUser, getLoggedInUserToken } from "../auth";
 import '../styles/profile.css'
 import { Link } from "react-router-dom";
 
-function Profile(props) {
+function Profile() {
+
+    const currentUser = getLoggedInUser()
 
     const [user, setUser] = useState([])
 
@@ -20,7 +22,7 @@ function Profile(props) {
 
             try {
                 const response = await axios.get(
-                    `/users/${props.user}`,
+                    `/users/${currentUser}`,
                     {
                         headers: {
                             'Content-Type': 'application/json',
@@ -37,7 +39,7 @@ function Profile(props) {
             }
         }
         getProject();
-    }, [props.user])
+    }, [currentUser])
 
 
     return (

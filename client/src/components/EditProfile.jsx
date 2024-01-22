@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "../axiosConfig"
-import { getLoggedInUserToken } from "../auth";
+import { getLoggedInUser, getLoggedInUserToken } from "../auth";
 import { useNavigate } from 'react-router-dom';
 
-function EditProfile(props) {
+function EditProfile() {
 
     const [editUser, setEditUser] = useState({});
+
+    const user = getLoggedInUser();
 
     const token = getLoggedInUserToken();
 
@@ -17,7 +19,7 @@ function EditProfile(props) {
             if (!token) return null;
 
             try {
-                const response = await axios.get(`/users/${props.user}`, {
+                const response = await axios.get(`/users/${user}`, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`,
@@ -33,7 +35,7 @@ function EditProfile(props) {
             }
         }
         getUser();
-    }, [props.user]);
+    }, [user]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
