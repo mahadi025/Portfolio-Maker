@@ -1,13 +1,15 @@
 import profilePic from "../assets/Mahadi.png"
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Typed from "typed.js";
 import '../styles/about.css'
 
-function About() {
+function About(props) {
+
+    const user = props.mainUser;
 
     useEffect(() => {
         const typed2 = new Typed(".multiple-text2", {
-            strings: ["Web Developer"],
+            strings: [user.introduction],
             typeSpeed: 100,
             backSpeed: 100,
             typeDelay: 1000,
@@ -28,18 +30,16 @@ function About() {
         };
     }, []);
 
-
-
     return (
         <div className="container about-container">
             <div className="d-flex align-items-center justify-content-center">
                 <div className="about-img">
-                    <img className="rounded-circle" src={profilePic} alt="" />
+                    <img className="rounded-circle" src={user.photoUrl} alt="" />
                 </div>
                 <div className="about-content pl-2">
                     <h2 className="heading">About <span>ME</span></h2>
                     <h3><span className="multiple-text2"></span></h3>
-                    <p>Hello, My name is Mahadi Karim Munif. I graduated from East West University with BSC in Computer Science
+                    <p>Hello, My name is {user.firstName} {user.lastName}. I graduated from East West University with BSC in Computer Science
                         Engineering. I love programming. I
                         know <span className="badge badge-pill badge-success"><i>C</i></span>, <span className="badge badge-pill badge-success"><i>C++</i></span>, <span
                             className="badge badge-pill badge-success"><i>JAVA</i></span>, <span className="badge badge-pill badge-success"><i>Python</i></span>,
