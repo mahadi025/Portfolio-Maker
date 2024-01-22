@@ -24,9 +24,9 @@ function ProjectList() {
     }, [])
 
     return (
-        <div className="project">
-            <h2 className="heading text-center">My <span>Projects</span></h2>
-            <div className="project-container mt-4">
+        <section className="project">
+            <h2 className="heading">My <span>Projects</span></h2>
+            <div className="project-container">
                 {projects.map(project => (
                     <Link to={`/project/${project.id}`} key={project.id}>
                         <div className="project-box">
@@ -38,7 +38,7 @@ function ProjectList() {
                     </Link>
                 ))}
             </div>
-        </div>
+        </section>
     );
 }
 export default ProjectList;
