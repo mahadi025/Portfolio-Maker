@@ -23,8 +23,6 @@ function Home(props) {
             typeDelay: 1000,
             loop: true
         });
-
-
         return () => {
             typed1.destroy();
             typed2.destroy();
@@ -35,8 +33,8 @@ function Home(props) {
         <section className="home">
             <div className="home-content">
                 <h3>Hi, I am</h3>
-                <h3>Mahadi Karim <span>Munif</span></h3>
-                <h3>and I am a FullStack Developer</h3>
+                <h3>{user.firstName}<span> {user.lastName}</span></h3>
+                <h3>and I am a {user.introduction}</h3>
                 <h3>Frontend: <span className="multiple-text1"></span></h3>
                 <h3>Backend: <span className="multiple-text2"></span></h3>
                 <p>“You are never too old to set another goal or to dream a new dream.” ~ C.S Lewis</p>
