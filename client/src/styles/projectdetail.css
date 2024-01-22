@@ -6,7 +6,7 @@
 }
 
 .project-detail .card{
-    width: 40rem;
+    width: 80rem;
     background: var(--second-bg-color);
     padding: 1.5rem 1.5rem 2rem;
     border-radius: 2rem;
@@ -15,44 +15,59 @@
 
 }
 
-.project-body h5 {
-    font-size: 1.5rem;
+.project-detail-body h5 {
+    font-size: 1.rem;
     color: var(--text-color);
 }
 
-.project-body i {
-    font-size: 4rem;
+.project-detail-body i {
+    font-size: 3rem;
     color: var(--main-color);
     cursor: pointer;
 }
 
 
-.project-body a {
+.project-detail-body .card-link {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
     background: transparent;
     border-radius: 50%;
     font-size: 2rem;
     color: var(--main-color);
-    margin: 3rem 1.5rem 3rem 0;
     text-decoration: none;
 }
 
-.project-body a:hover {
+.project-detail-body .card-link:hover {
     color: var(--second-bg-color);
     box-shadow: 0 0 1rem var(--main-color);
     text-decoration: none;
 }
-
 
 .remove-btn {
     border-radius: 2rem;
 }
 
 .remove-btn:hover{
+    border-color: var(--main-color);
+    transform: scale(1.02);
+    transition: .5s ease;
+}
+
+.project-end{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.back-btn{
+    margin-right: auto;
+    border-radius: 2rem;
+}
+
+.back-btn:hover{
     border-color: var(--main-color);
     transform: scale(1.02);
     transition: .5s ease;

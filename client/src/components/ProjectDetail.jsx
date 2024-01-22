@@ -3,14 +3,16 @@ import axios from '../axiosConfig';
 import 'boxicons/css/boxicons.min.css';
 import '../styles/projectdetail.css'
 import { useEffect, useState } from "react";
-import { getLoggedInUserToken } from "../auth";
+import { getLoggedInUser, getLoggedInUserToken } from "../auth";
 
-function ProjectDetail(props) {
+function ProjectDetail() {
     const { id } = useParams();
 
     const navigateTo = useNavigate();
 
     const [project, setProject] = useState([]);
+
+    const user = getLoggedInUser();
 
     const token = getLoggedInUserToken();
 
@@ -83,23 +85,23 @@ function ProjectDetail(props) {
     return (
         <div className="container project-detail">
             <div className="card">
-                <div className="card-body project-body">
+                <div className="card-body project-detail-body">
                     <h5 className="card-title">{project.name}</h5>
-                    <p className="card-text">{project.description}</p>
+                    {project.description && <p className="card-text">{project.description}</p>}
                     <a href={project.url} className="card-link" target="_blank"><i className='bx bxl-github'></i></a>
-                    <br />
+                    <h5>Skills</h5>
                     {project.skills && project.skills.map(skill => (
                         <div key={skill.id} className="skill-list d-flex justify-content-between align-items-center pb-2">
                             <h4>{skill.name}</h4>
-                            {props.user && <button className="btn btn-danger remove-btn" onClick={() => handleRemoveSkill(skill.id)}>Remove</button>}
+                            {user && <button className="btn btn-danger remove-btn" onClick={() => handleRemoveSkill(skill.id)}>Remove</button>}
                         </div>
                     ))}
                     <div className="d-flex justify-content-center align-items-center">
                         <i onClick={() => { navigateTo(-1); }} className='bx bxs-left-arrow back-btn mr-auto'></i>
-                        {props.user && <Link to={`/project/edit-project/${project.id}`}>
+                        {user && <Link to={`/project/edit-project/${project.id}`}>
                             <i className='bx bxs-message-square-edit edit-project'></i>
                         </Link>}
-                        <i onClick={deleteProject} className='bx bx-folder-minus'></i>
+                        {user && <i onClick={deleteProject} className='bx bx-folder-minus'></i>}
                     </div>
                 </div>
             </div>
