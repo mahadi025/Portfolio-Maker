@@ -47,6 +47,7 @@ public class UsersController : BaseApiController
         return _mapper.Map<MemberDto>(user);
     }
 
+    [Authorize]
     [HttpPut]
     public async Task<ActionResult<MemberDto>> UpdateUser(MemberUpdateDto memberUpdateDto)
     {
