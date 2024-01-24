@@ -15,10 +15,12 @@ import CreateProject from './components/CreateProject';
 import Register from './components/Register';
 import axios from './axiosConfig';
 import Photo from './components/Photo';
+import AddPhoto from './components/AddPhoto';
 
 function App() {
 
   const [darkMode, setDarkMode] = useState(false);
+
 
   function handleThemeToggle() {
 
@@ -41,8 +43,6 @@ function App() {
       setIsLoggedOut(false);
     }
     async function getUser() {
-
-
       try {
         const response = await axios.get('/users/mahadi025');
 
@@ -60,9 +60,14 @@ function App() {
 
 
   const handleLogout = () => {
-
     window.location.reload();
+
     localStorage.removeItem('user');
+
+    localStorage.removeItem('token');
+
+    window.location.href = '/';
+
     setIsLoggedOut(true);
   };
 
@@ -82,6 +87,7 @@ function App() {
             <Route exact path="/register" element={<Register />} />
             <Route exact path="/profile" element={<Profile />} />
             <Route exact path="/profile/photo" element={<Photo />} />
+            <Route exact path="/profile/photo/add-photo" element={<AddPhoto />} />
             <Route exact path="profile/edit-profile" element={<EditProfile />} />
             <Route exact path="/project/edit-project/:id" element={<EditProject />} />
             <Route exact path="/remove-skill-from-project/:projectId/:skillId" />
