@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "../axiosConfig"
 import { getLoggedInUser, getLoggedInUserToken } from "../auth";
 import { useNavigate } from 'react-router-dom';
+import '../styles/editProfile.css'
 
 function EditProfile() {
 
@@ -79,7 +80,7 @@ function EditProfile() {
     return (
         <div className="container d-flex justify-content-center">
             <div>
-                <form className="edit-project-form" onSubmit={handleSubmit}>
+                <form className="edit-profile-form" onSubmit={handleSubmit}>
                     <label htmlFor="firstName">First Name</label>
                     <input
                         value={editUser.firstName || ''}
