@@ -94,13 +94,6 @@ function EditProfile() {
                         name="lastName"
                         onChange={handleInputChange}
                     />
-                    <label htmlFor="knownAs">Known As</label>
-                    <input
-                        value={editUser.knownAs || ''}
-                        type="text"
-                        name="knownAs"
-                        onChange={handleInputChange}
-                    />
                     <label htmlFor="introduction">Introduction</label>
                     <input
                         value={editUser.introduction || ''}
