@@ -12,7 +12,7 @@ function Profile() {
 
 
     useEffect(() => {
-        async function getProject() {
+        async function getUser() {
 
             const token = getLoggedInUserToken();
 
@@ -38,7 +38,7 @@ function Profile() {
                 console.log(error);
             }
         }
-        getProject();
+        getUser();
     }, [currentUser])
 
 
@@ -53,7 +53,10 @@ function Profile() {
                     <p className="card-text">I am from {user.city}, {user.country}</p>
                 </div>
                 <Link to="edit-profile">
-                    <button className="btn btn-info">Edit Profile</button>
+                    <button className="btn btn-info mb-2">Edit Profile</button>
+                </Link>
+                <Link to="photo">
+                    <button className="btn btn-info">Update Photos</button>
                 </Link>
             </div>
         </div>
