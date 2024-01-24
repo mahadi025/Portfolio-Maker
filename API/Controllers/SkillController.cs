@@ -10,23 +10,21 @@ namespace API.Controllers;
 
 public class SkillController : BaseApiController
 {
-    private readonly ISkillRepository _skillRepository;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
     private readonly DataContext _context;
-    private readonly IProjectRepository _projectRepository;
 
-    public SkillController(ISkillRepository skillRepository, IMapper mapper, DataContext context, IProjectRepository projectRepository)
+    public SkillController(IUnitOfWork unitOfWork, IMapper mapper, DataContext context)
     {
-        _skillRepository = skillRepository;
+        _unitOfWork = unitOfWork;
         _mapper = mapper;
         _context = context;
-        _projectRepository = projectRepository;
     }
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<SkillDto>>> GetSkills()
     {
-        var skills = await _skillRepository.GetSkillsAsync();
+        var skills = await _unitOfWork.SkillRepository.GetSkillsAsync();
 
         var skillsToReturn = _mapper.Map<IEnumerable<SkillDto>>(skills);
 
@@ -36,7 +34,7 @@ public class SkillController : BaseApiController
     [HttpGet("{skillName}")]
     public async Task<ActionResult<SkillDto>> GetSkill(string skillName)
     {
-        var skill = await _skillRepository.GetSkillByName(skillName.ToUpper());
+        var skill = await _unitOfWork.SkillRepository.GetSkillByName(skillName.ToUpper());
 
         return _mapper.Map<SkillDto>(skill);
     }
@@ -45,14 +43,14 @@ public class SkillController : BaseApiController
     [HttpGet("get-skills-by-project/{projectName}")]
     public async Task<ActionResult<IEnumerable<SkillDto>>> GetSkillsByProject(string projectName)
     {
-        var project = await _projectRepository.GetProjectByNameAsync(projectName);
+        var project = await _unitOfWork.ProjectRepository.GetProjectByNameAsync(projectName);
 
         if (project == null)
         {
             return NotFound();
         }
 
-        var skills = await _skillRepository.GetSkillsByProjectNameAsync(project.Name);
+        var skills = await _unitOfWork.SkillRepository.GetSkillsByProjectNameAsync(project.Name);
 
         var skillsToReturn = _mapper.Map<IEnumerable<SkillDto>>(skills);
 
@@ -84,7 +82,7 @@ public class SkillController : BaseApiController
     [HttpPut("{skillName}")]
     public async Task<ActionResult<SkillDto>> EditSkill([FromRoute] string skillName, [FromBody] SkillDto skillDto)
     {
-        var skill = await _skillRepository.GetSkillByName(skillName.ToUpper());
+        var skill = await _unitOfWork.SkillRepository.GetSkillByName(skillName.ToUpper());
 
         if (skill == null)
         {
@@ -103,14 +101,14 @@ public class SkillController : BaseApiController
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteSkill(int id)
     {
-        var skill = await _skillRepository.GetSkillById(id);
+        var skill = await _unitOfWork.SkillRepository.GetSkillById(id);
 
         if (skill == null)
         {
             return NotFound("Skill not found");
         }
 
-        _skillRepository.DeleteSkill(skill);
+        _unitOfWork.SkillRepository.DeleteSkill(skill);
 
         await _context.SaveChangesAsync();
 

@@ -12,24 +12,21 @@ namespace API.Controllers;
 
 public class ProjectController : BaseApiController
 {
+    private readonly IUnitOfWork _unitOfWork;
     private readonly DataContext _context;
-    private readonly IProjectRepository _projectRepository;
-    private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
-    private readonly ISkillRepository _skillRepository;
 
-    public ProjectController(DataContext context, IProjectRepository projectRepository, IUserRepository userRepository, IMapper mapper, ISkillRepository skillRepository)
+    public ProjectController(IUnitOfWork unitOfWork, DataContext context, IMapper mapper)
     {
+        _unitOfWork = unitOfWork;
         _context = context;
-        _projectRepository = projectRepository;
-        _userRepository = userRepository;
         _mapper = mapper;
-        _skillRepository = skillRepository;
+
     }
     [HttpGet]
     public async Task<ActionResult<IEnumerable<ProjectDto>>> GetProjects()
     {
-        var projects = await _projectRepository.GetProjectsAsync();
+        var projects = await _unitOfWork.ProjectRepository.GetProjectsAsync();
 
         var projectsToReturn = _mapper.Map<IEnumerable<ProjectDto>>(projects);
 
@@ -39,14 +36,14 @@ public class ProjectController : BaseApiController
     [HttpGet("{username}")]
     public async Task<ActionResult<IEnumerable<ProjectDto>>> GetProjectsByUsername(string username)
     {
-        var user = await _userRepository.GetUserByUsernameAsync(username);
+        var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
 
         if (user == null)
         {
             return NotFound("Username not found");
         }
 
-        var projects = await _projectRepository.GetProjectsByUserNameAsync(username);
+        var projects = await _unitOfWork.ProjectRepository.GetProjectsByUserNameAsync(username);
 
         if (projects == null)
         {
@@ -61,7 +58,7 @@ public class ProjectController : BaseApiController
     [HttpGet("{id:int}")]
     public async Task<ActionResult<ProjectDto>> GetProjectById(int id)
     {
-        var project = await _projectRepository.GetProjectByIdAsync(id);
+        var project = await _unitOfWork.ProjectRepository.GetProjectByIdAsync(id);
 
         return _mapper.Map<ProjectDto>(project);
     }
@@ -72,7 +69,7 @@ public class ProjectController : BaseApiController
     {
         if (await ProjectExists(registerDto.Name)) return BadRequest("Project already exist");
 
-        var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+        var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 
         if (user == null)
         {
@@ -102,7 +99,7 @@ public class ProjectController : BaseApiController
     [HttpPut("edit-project/{id}")]
     public async Task<ActionResult<ProjectDto>> EditProject([FromRoute] int id, [FromBody] ProjectDto projectDto)
     {
-        var project = await _projectRepository.GetProjectByIdAsync(id);
+        var project = await _unitOfWork.ProjectRepository.GetProjectByIdAsync(id);
 
         if (project == null)
         {
@@ -163,14 +160,14 @@ public class ProjectController : BaseApiController
     [HttpPut("remove-skill-from-project/{projectId}/{skillId}")]
     public async Task<ActionResult<ProjectDto>> RemoveSkillFromProject([FromRoute] int projectId, [FromRoute] int skillId)
     {
-        var project = await _projectRepository.GetProjectByIdAsync(projectId);
+        var project = await _unitOfWork.ProjectRepository.GetProjectByIdAsync(projectId);
 
         if (project == null)
         {
             return NotFound("Project not found");
         }
 
-        var skill = _skillRepository.GetSkillById(skillId);
+        var skill = _unitOfWork.SkillRepository.GetSkillById(skillId);
 
         if (skill == null)
         {
@@ -205,14 +202,14 @@ public class ProjectController : BaseApiController
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteProject(int id)
     {
-        var project = await _projectRepository.GetProjectByIdAsync(id);
+        var project = await _unitOfWork.ProjectRepository.GetProjectByIdAsync(id);
 
         if (project == null)
         {
             return NotFound("Project not found");
         }
 
-        _projectRepository.DeleteProject(project);
+        _unitOfWork.ProjectRepository.DeleteProject(project);
 
         await _context.SaveChangesAsync();
 
