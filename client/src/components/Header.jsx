@@ -9,7 +9,6 @@ function Header(props) {
 
     const user = getLoggedInUser();
 
-
     return (
         <Navbar expand="lg" className="header bg-body-tertiary">
             <Container id="nav">

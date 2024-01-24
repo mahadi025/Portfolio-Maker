@@ -3,7 +3,7 @@ import axios from "../axiosConfig";
 import '../styles/login.css'
 import { useNavigate } from 'react-router-dom';
 import { getLoggedInUser } from "../auth";
-
+import { toast } from 'react-toastify';
 function Login() {
     const navigateTo = useNavigate();
 
@@ -33,7 +33,7 @@ function Login() {
             window.location.reload();
 
         } catch (error) {
-            console.error('Login failed!', error.response.data);
+            toast.error("Username or Password did not match");
         }
     };
 

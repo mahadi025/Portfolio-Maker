@@ -1,7 +1,8 @@
 import axios from '../axiosConfig';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { getLoggedInUserToken } from "../auth";
+import { toast } from 'react-toastify';
 
 function CreateProject() {
 
@@ -41,7 +42,8 @@ function CreateProject() {
             );
             navigateTo(-1);
         } catch (error) {
-            navigateTo(-1);
+            // navigateTo(-1);
+            toast.error(error.response.data);
             console.error(error.response.data);
         }
     };
