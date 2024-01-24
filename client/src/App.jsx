@@ -14,6 +14,7 @@ import EditProfile from './components/EditProfile';
 import CreateProject from './components/CreateProject';
 import Register from './components/Register';
 import axios from './axiosConfig';
+import Photo from './components/Photo';
 
 function App() {
 
@@ -80,6 +81,7 @@ function App() {
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/register" element={<Register />} />
             <Route exact path="/profile" element={<Profile />} />
+            <Route exact path="/profile/photo" element={<Photo />} />
             <Route exact path="profile/edit-profile" element={<EditProfile />} />
             <Route exact path="/project/edit-project/:id" element={<EditProject />} />
             <Route exact path="/remove-skill-from-project/:projectId/:skillId" />
