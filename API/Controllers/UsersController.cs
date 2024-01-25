@@ -144,4 +144,21 @@ public class UsersController : BaseApiController
         return BadRequest("Problem deleting photo");
     }
 
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteUser(int id)
+    {
+        var user = await _unitOfWork.UserRepository.GetUserByIdAsync(id);
+
+        if (user == null)
+        {
+            return NotFound("User not found");
+        }
+
+        _unitOfWork.UserRepository.DeleteUser(user);
+
+        if (await _unitOfWork.Complete()) return NoContent();
+
+        return Ok("Successfully deleted the user");
+    }
+
 }

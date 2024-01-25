@@ -32,6 +32,11 @@ public class UserRepository : IUserRepository
         return await _context.SaveChangesAsync() > 0;
     }
 
+    public void DeleteUser(AppUser user)
+    {
+        _context.Users.Remove(user);
+    }
+
     public void update(AppUser user)
     {
         _context.Entry(user).State = EntityState.Modified;
