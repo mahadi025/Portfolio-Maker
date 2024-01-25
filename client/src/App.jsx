@@ -38,13 +38,15 @@ function App() {
   const [mainUser, setMainUser] = useState({})
 
 
+  const MAIN_USER = 'mahadi025' // the portfolio user
+
   useEffect(() => {
     if (isLoggedOut) {
       setIsLoggedOut(false);
     }
     async function getUser() {
       try {
-        const response = await axios.get('/users/mahadi025');
+        const response = await axios.get(`/users/${MAIN_USER}`);
 
         if (response.status !== 200) throw new Error('Network response was not ok');
 
