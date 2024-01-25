@@ -10,6 +10,9 @@ export default defineConfig({
     },
     port: 3000
   },
+  build: {
+    outDir: '../API/wwwroot',
+  },
 
   plugins: [react()],
 })
