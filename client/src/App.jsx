@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Home from './components/Home';
 import Header from './components/Header';
 import './App.css'
@@ -91,6 +91,7 @@ function App() {
             <Route exact path="profile/edit-profile" element={<EditProfile />} />
             <Route exact path="/project/edit-project/:id" element={<EditProject />} />
             <Route exact path="/remove-skill-from-project/:projectId/:skillId" />
+            <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </div>
       </div>
