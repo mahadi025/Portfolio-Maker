@@ -1,5 +1,4 @@
-import profilePic from "../assets/Mahadi.png"
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Typed from "typed.js";
 import '../styles/about.css'
 
