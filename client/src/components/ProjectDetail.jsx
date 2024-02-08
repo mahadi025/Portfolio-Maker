@@ -106,7 +106,6 @@ function ProjectDetail() {
                 </div>
             </div>
         </div>
-
     );
 }
 
